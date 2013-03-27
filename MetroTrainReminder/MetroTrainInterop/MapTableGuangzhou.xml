@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MetroStationMapTable CityName="广州">
+  <ThroughLine Key="番禺广场 -> 科韵路">
+    <ThroughPath Price ="6">
+      <ThroughPathNode StationName ="番禺广场"/>
+      <ThroughPathNode StationName ="珠江新城"/>
+      <ThroughPathNode StationName ="科韵路"/>
+    </ThroughPath>
+  </ThroughLine>
+</MetroStationMapTable>
+

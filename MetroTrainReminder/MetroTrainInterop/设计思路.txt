@@ -1,0 +1,10 @@
+﻿1. 第一期默认使用查表的方式实现地铁计费
+
+2. 整个代码设计和架构：
+a. 一个MetroPath代表界面上根据一个起始点、一个结束点查找一条地铁搭乘路线
+b. 一个MetroStation相当于地铁中的一个站点、一个城市地铁线路图中的一个Node
+c. 一个ThroughPath相当于一个MetroPath过程中需要通过的Node集合，换成节点使用ThroughPathNode表示。通行路线不同，价格会不同
+d. 一个IThroughtPathCalcStrategy表示一种计算MetroPath的起始与结束之间的通行方法，目前默认使用ThroughPathCalcStrategy，就是查表实现
+e. MetroStationMapTable是查表类
+
+3. 与界面绑定和展示直接相关的类，会使用ModelBase类作为基础类，主要实现INotifyPropertyChanged，之后考虑某些成员支持ICollectionViewChanged
