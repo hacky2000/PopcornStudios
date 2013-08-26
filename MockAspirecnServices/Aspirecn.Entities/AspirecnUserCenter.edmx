@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AspirecnUserCenterModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="AspirecnUserCenterModelStoreContainer">
+          <EntitySet Name="t_user_info" EntityType="AspirecnUserCenterModel.Store.t_user_info" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="t_user_info">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" Nullable="false" MaxLength="11" />
+          <Property Name="PuserId" Type="varchar" MaxLength="11" />
+          <Property Name="LoginName" Type="varchar" MaxLength="100" />
+          <Property Name="UserType" Type="int" />
+          <Property Name="IMSI" Type="varchar" MaxLength="64" />
+          <Property Name="BindMsisdn" Type="varchar" MaxLength="11" />
+          <Property Name="Password" Type="varchar" MaxLength="40" />
+          <Property Name="ErrorTimes" Type="int" />
+          <Property Name="LockTime" Type="datetime" />
+          <Property Name="NickName" Type="varchar" MaxLength="40" />
+          <Property Name="Email" Type="varchar" MaxLength="80" />
+          <Property Name="HeadImage" Type="varchar" MaxLength="200" />
+          <Property Name="Sex" Type="varchar" MaxLength="2" />
+          <Property Name="Birthday" Type="varchar" MaxLength="10" />
+          <Property Name="Constellation" Type="varchar" MaxLength="2" />
+          <Property Name="Work" Type="varchar" MaxLength="2" />
+          <Property Name="Introduce" Type="varchar" MaxLength="256" />
+          <Property Name="Favorite" Type="varchar" MaxLength="256" />
+          <Property Name="ProvinceId" Type="varchar" MaxLength="10" />
+          <Property Name="CityId" Type="varchar" MaxLength="10" />
+          <Property Name="Address" Type="varchar" MaxLength="100" />
+          <Property Name="RegTime" Type="datetime" />
+          <Property Name="RegPlace" Type="varchar" MaxLength="3" />
+          <Property Name="LastLogonTime" Type="datetime" />
+          <Property Name="LastLogonPlace" Type="varchar" MaxLength="3" />
+          <Property Name="LudTime" Type="datetime" />
+          <Property Name="LudPlace" Type="varchar" MaxLength="3" />
+          <Property Name="WwwFirLogonCId" Type="varchar" MaxLength="64" />
+          <Property Name="WwwFirLogonTime" Type="datetime" />
+          <Property Name="WwwDeviceId" Type="varchar" MaxLength="64" />
+          <Property Name="MoFirLogonCId" Type="varchar" MaxLength="64" />
+          <Property Name="MoFirLogonTime" Type="datetime" />
+          <Property Name="MoDeviceId" Type="varchar" MaxLength="64" />
+          <Property Name="WapFirLogonCId" Type="varchar" MaxLength="64" />
+          <Property Name="WapFirLogonTime" Type="datetime" />
+          <Property Name="WapDeviceId" Type="varchar" MaxLength="64" />
+          <Property Name="PayPassword" Type="varchar" MaxLength="40" />
+          <Property Name="PayPasswordStatus" Type="int" />
+          <Property Name="PaySwitchStatus" Type="int" />
+          <Property Name="PartitionID" Type="varchar" MaxLength="2" />
+          <Property Name="BlogStat139" Type="int" />
+          <Property Name="BlogUID139" Type="varchar" MaxLength="40" />
+          <Property Name="Follow_ap" Type="varchar" MaxLength="6" />
+          <Property Name="FetionNo" Type="varchar" MaxLength="20" />
+          <Property Name="fetionType" Type="int" />
+          <Property Name="personalSign" Type="varchar" MaxLength="100" />
+          <Property Name="privacySet" Type="int" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AspirecnUserCenterModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AspirecnUserCenterEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="t_user_info" EntityType="AspirecnUserCenterModel.t_user_info" />
+        </EntityContainer>
+        <EntityType Name="t_user_info">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="11" Unicode="false" FixedLength="false" />
+          <Property Name="PuserId" Type="String" MaxLength="11" Unicode="false" FixedLength="false" />
+          <Property Name="LoginName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="UserType" Type="Int32" />
+          <Property Name="IMSI" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="BindMsisdn" Type="String" MaxLength="11" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" MaxLength="40" Unicode="false" FixedLength="false" />
+          <Property Name="ErrorTimes" Type="Int32" />
+          <Property Name="LockTime" Type="DateTime" Precision="3" />
+          <Property Name="NickName" Type="String" MaxLength="40" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="80" Unicode="false" FixedLength="false" />
+          <Property Name="HeadImage" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="Sex" Type="String" MaxLength="2" Unicode="false" FixedLength="false" />
+          <Property Name="Birthday" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Constellation" Type="String" MaxLength="2" Unicode="false" FixedLength="false" />
+          <Property Name="Work" Type="String" MaxLength="2" Unicode="false" FixedLength="false" />
+          <Property Name="Introduce" Type="String" MaxLength="256" Unicode="false" FixedLength="false" />
+          <Property Name="Favorite" Type="String" MaxLength="256" Unicode="false" FixedLength="false" />
+          <Property Name="ProvinceId" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="CityId" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="RegTime" Type="DateTime" Precision="3" />
+          <Property Name="RegPlace" Type="String" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="LastLogonTime" Type="DateTime" Precision="3" />
+          <Property Name="LastLogonPlace" Type="String" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="LudTime" Type="DateTime" Precision="3" />
+          <Property Name="LudPlace" Type="String" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="WwwFirLogonCId" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="WwwFirLogonTime" Type="DateTime" Precision="3" />
+          <Property Name="WwwDeviceId" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="MoFirLogonCId" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="MoFirLogonTime" Type="DateTime" Precision="3" />
+          <Property Name="MoDeviceId" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="WapFirLogonCId" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="WapFirLogonTime" Type="DateTime" Precision="3" />
+          <Property Name="WapDeviceId" Type="String" MaxLength="64" Unicode="false" FixedLength="false" />
+          <Property Name="PayPassword" Type="String" MaxLength="40" Unicode="false" FixedLength="false" />
+          <Property Name="PayPasswordStatus" Type="Int32" />
+          <Property Name="PaySwitchStatus" Type="Int32" />
+          <Property Name="PartitionID" Type="String" MaxLength="2" Unicode="false" FixedLength="false" />
+          <Property Name="Follow_ap" Type="String" MaxLength="6" Unicode="false" FixedLength="false" />
+          <Property Name="FetionNo" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="fetionType" Type="Int32" />
+          <Property Name="personalSign" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="privacySet" Type="Int32" />
+          <Property Name="BlogStat139" Type="Int32" />
+          <Property Type="String" Name="BlogUID139" MaxLength="40" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AspirecnUserCenterModelStoreContainer" CdmEntityContainer="AspirecnUserCenterEntities">
+          <EntitySetMapping Name="t_user_info">
+            <EntityTypeMapping TypeName="AspirecnUserCenterModel.t_user_info">
+              <MappingFragment StoreEntitySet="t_user_info">
+                <ScalarProperty Name="BlogUID139" ColumnName="BlogUID139" />
+                <ScalarProperty Name="BlogStat139" ColumnName="BlogStat139" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PuserId" ColumnName="PuserId" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="IMSI" ColumnName="IMSI" />
+                <ScalarProperty Name="BindMsisdn" ColumnName="BindMsisdn" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ErrorTimes" ColumnName="ErrorTimes" />
+                <ScalarProperty Name="LockTime" ColumnName="LockTime" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="HeadImage" ColumnName="HeadImage" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Constellation" ColumnName="Constellation" />
+                <ScalarProperty Name="Work" ColumnName="Work" />
+                <ScalarProperty Name="Introduce" ColumnName="Introduce" />
+                <ScalarProperty Name="Favorite" ColumnName="Favorite" />
+                <ScalarProperty Name="ProvinceId" ColumnName="ProvinceId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="RegTime" ColumnName="RegTime" />
+                <ScalarProperty Name="RegPlace" ColumnName="RegPlace" />
+                <ScalarProperty Name="LastLogonTime" ColumnName="LastLogonTime" />
+                <ScalarProperty Name="LastLogonPlace" ColumnName="LastLogonPlace" />
+                <ScalarProperty Name="LudTime" ColumnName="LudTime" />
+                <ScalarProperty Name="LudPlace" ColumnName="LudPlace" />
+                <ScalarProperty Name="WwwFirLogonCId" ColumnName="WwwFirLogonCId" />
+                <ScalarProperty Name="WwwFirLogonTime" ColumnName="WwwFirLogonTime" />
+                <ScalarProperty Name="WwwDeviceId" ColumnName="WwwDeviceId" />
+                <ScalarProperty Name="MoFirLogonCId" ColumnName="MoFirLogonCId" />
+                <ScalarProperty Name="MoFirLogonTime" ColumnName="MoFirLogonTime" />
+                <ScalarProperty Name="MoDeviceId" ColumnName="MoDeviceId" />
+                <ScalarProperty Name="WapFirLogonCId" ColumnName="WapFirLogonCId" />
+                <ScalarProperty Name="WapFirLogonTime" ColumnName="WapFirLogonTime" />
+                <ScalarProperty Name="WapDeviceId" ColumnName="WapDeviceId" />
+                <ScalarProperty Name="PayPassword" ColumnName="PayPassword" />
+                <ScalarProperty Name="PayPasswordStatus" ColumnName="PayPasswordStatus" />
+                <ScalarProperty Name="PaySwitchStatus" ColumnName="PaySwitchStatus" />
+                <ScalarProperty Name="PartitionID" ColumnName="PartitionID" />
+                <ScalarProperty Name="Follow_ap" ColumnName="Follow_ap" />
+                <ScalarProperty Name="FetionNo" ColumnName="FetionNo" />
+                <ScalarProperty Name="fetionType" ColumnName="fetionType" />
+                <ScalarProperty Name="personalSign" ColumnName="personalSign" />
+                <ScalarProperty Name="privacySet" ColumnName="privacySet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

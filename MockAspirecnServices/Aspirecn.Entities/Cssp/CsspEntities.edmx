@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CsspEntities.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="CsspEntitiesStoreContainer">
+    <EntitySet Name="ServiceAccessReqEntities" EntityType="CsspEntities.Store.ServiceAccessReqEntities" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ParamNameEntities" EntityType="CsspEntities.Store.ParamNameEntities" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ServiceAccessRespEntities" EntityType="CsspEntities.Store.ServiceAccessRespEntities" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="ServiceAccessReqEntities">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Head_Send_Address_DeviceType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Head_Send_Address_DeviceID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Head_Dest_Address_DeviceType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Head_Dest_Address_DeviceID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Head_Version" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Head_MsgType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body_Request_SPID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body_Request_SPServiceID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body_Request_ChannelID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body_Request_ContentID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body_Request_MSISDN" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body_Request_FeeMSISDN" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body_Request_Params_Pager_BeginIndex" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body_Request_Params_Pager_EndIndex" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ParamNameEntities">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParamName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CompareOp" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ParamValue" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServiceAccessRespEntities">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Head_Send_Address_DeviceType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Head_Send_Address_DeviceID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Head_Dest_Address_DeviceType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Head_Dest_Address_DeviceID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Head_TransactionID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Head_Version" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body_RetCode" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body_SPID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body_SPServiceID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body_Price" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body_OrderID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body_PushID" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="CsspEntities" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="CsspEntitiesContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ServiceAccessReqEntities" EntityType="CsspEntities.ServiceAccessReqEntity" />
+          <EntitySet Name="ParamNameEntities" EntityType="CsspEntities.ParamNameEntity" />
+          <EntitySet Name="ServiceAccessRespEntities" EntityType="CsspEntities.ServiceAccessRespEntity" />
+        </EntityContainer>
+        <EntityType Name="ServiceAccessReqEntity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Head" Type="CsspEntities.Head" Nullable="false" />
+          <Property Name="Body" Type="CsspEntities.Body" Nullable="false" />
+          </EntityType>
+        <ComplexType Name="Head" >
+          <Property Type="CsspEntities.Address_Info_Schema" Name="Send_Address" Nullable="false" />
+          <Property Type="CsspEntities.Address_Info_Schema" Name="Dest_Address" Nullable="false" />
+          <Property Type="String" Name="Version" Nullable="false" />
+          <Property Type="String" Name="MsgType" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Body" >
+          <Property Type="CsspEntities.RequestType" Name="Request" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="RequestType" >
+          <Property Type="String" Name="SPID" Nullable="false" />
+          <Property Type="String" Name="SPServiceID" Nullable="false" />
+          <Property Type="String" Name="ChannelID" Nullable="false" />
+          <Property Type="String" Name="ContentID" Nullable="false" />
+          <Property Type="String" Name="MSISDN" Nullable="false" />
+          <Property Type="String" Name="FeeMSISDN" Nullable="false" />
+          <Property Type="CsspEntities.ParamsType" Name="Params" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Address_Info_Schema" >
+          <Property Type="String" Name="DeviceType" Nullable="false" />
+          <Property Type="String" Name="DeviceID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ParamsType" >
+          <Property Type="CsspEntities.PagerType" Name="Pager" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="PagerType" >
+          <Property Type="String" Name="BeginIndex" Nullable="false" />
+          <Property Type="String" Name="EndIndex" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="ParamNameEntity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ParamName" Nullable="false" />
+          <Property Type="String" Name="CompareOp" Nullable="false" />
+          <Property Type="String" Name="ParamValue" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ServiceAccessRespEntity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Head" Type="CsspEntities.RespHead" Nullable="false" />
+          <Property Name="Body" Type="CsspEntities.ResponseType" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="RespHead" >
+          <Property Type="CsspEntities.Address_Info_Schema" Name="Send_Address" Nullable="false" />
+          <Property Type="CsspEntities.Address_Info_Schema" Name="Dest_Address" Nullable="false" />
+          <Property Type="String" Name="TransactionID" Nullable="false" />
+          <Property Type="String" Name="Version" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ResponseType" >
+          <Property Type="String" Name="RetCode" Nullable="false" />
+          <Property Type="String" Name="SPID" Nullable="false" />
+          <Property Type="String" Name="SPServiceID" Nullable="false" />
+          <Property Type="String" Name="Price" Nullable="false" />
+          <Property Type="String" Name="OrderID" Nullable="false" />
+          <Property Type="String" Name="PushID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CsspEntitiesStoreContainer" CdmEntityContainer="CsspEntitiesContainer">
+    <EntitySetMapping Name="ServiceAccessReqEntities">
+      <EntityTypeMapping TypeName="IsTypeOf(CsspEntities.ServiceAccessReqEntity)">
+        <MappingFragment StoreEntitySet="ServiceAccessReqEntities">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ComplexProperty Name="Head" TypeName="CsspEntities.Head">
+            <ComplexProperty Name="Send_Address" TypeName="CsspEntities.Address_Info_Schema">
+              <ScalarProperty Name="DeviceType" ColumnName="Head_Send_Address_DeviceType" />
+              <ScalarProperty Name="DeviceID" ColumnName="Head_Send_Address_DeviceID" />
+            </ComplexProperty>
+            <ComplexProperty Name="Dest_Address" TypeName="CsspEntities.Address_Info_Schema">
+              <ScalarProperty Name="DeviceType" ColumnName="Head_Dest_Address_DeviceType" />
+              <ScalarProperty Name="DeviceID" ColumnName="Head_Dest_Address_DeviceID" />
+            </ComplexProperty>
+            <ScalarProperty Name="Version" ColumnName="Head_Version" />
+            <ScalarProperty Name="MsgType" ColumnName="Head_MsgType" />
+          </ComplexProperty>
+          <ComplexProperty Name="Body" TypeName="CsspEntities.Body">
+            <ComplexProperty Name="Request" TypeName="CsspEntities.RequestType">
+              <ScalarProperty Name="SPID" ColumnName="Body_Request_SPID" />
+              <ScalarProperty Name="SPServiceID" ColumnName="Body_Request_SPServiceID" />
+              <ScalarProperty Name="ChannelID" ColumnName="Body_Request_ChannelID" />
+              <ScalarProperty Name="ContentID" ColumnName="Body_Request_ContentID" />
+              <ScalarProperty Name="MSISDN" ColumnName="Body_Request_MSISDN" />
+              <ScalarProperty Name="FeeMSISDN" ColumnName="Body_Request_FeeMSISDN" />
+              <ComplexProperty Name="Params" TypeName="CsspEntities.ParamsType">
+                <ComplexProperty Name="Pager" TypeName="CsspEntities.PagerType">
+                  <ScalarProperty Name="BeginIndex" ColumnName="Body_Request_Params_Pager_BeginIndex" />
+                  <ScalarProperty Name="EndIndex" ColumnName="Body_Request_Params_Pager_EndIndex" />
+                </ComplexProperty>
+              </ComplexProperty>
+            </ComplexProperty>
+          </ComplexProperty>
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ParamNameEntities">
+      <EntityTypeMapping TypeName="IsTypeOf(CsspEntities.ParamNameEntity)">
+        <MappingFragment StoreEntitySet="ParamNameEntities">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ParamName" ColumnName="ParamName" />
+          <ScalarProperty Name="CompareOp" ColumnName="CompareOp" />
+          <ScalarProperty Name="ParamValue" ColumnName="ParamValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceAccessRespEntities">
+      <EntityTypeMapping TypeName="IsTypeOf(CsspEntities.ServiceAccessRespEntity)">
+        <MappingFragment StoreEntitySet="ServiceAccessRespEntities">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ComplexProperty Name="Head" TypeName="CsspEntities.RespHead">
+            <ComplexProperty Name="Send_Address" TypeName="CsspEntities.Address_Info_Schema">
+              <ScalarProperty Name="DeviceType" ColumnName="Head_Send_Address_DeviceType" />
+              <ScalarProperty Name="DeviceID" ColumnName="Head_Send_Address_DeviceID" />
+            </ComplexProperty>
+            <ComplexProperty Name="Dest_Address" TypeName="CsspEntities.Address_Info_Schema">
+              <ScalarProperty Name="DeviceType" ColumnName="Head_Dest_Address_DeviceType" />
+              <ScalarProperty Name="DeviceID" ColumnName="Head_Dest_Address_DeviceID" />
+            </ComplexProperty>
+            <ScalarProperty Name="TransactionID" ColumnName="Head_TransactionID" />
+            <ScalarProperty Name="Version" ColumnName="Head_Version" />
+          </ComplexProperty>
+          <ComplexProperty Name="Body" TypeName="CsspEntities.ResponseType">
+            <ScalarProperty Name="RetCode" ColumnName="Body_RetCode" />
+            <ScalarProperty Name="SPID" ColumnName="Body_SPID" />
+            <ScalarProperty Name="SPServiceID" ColumnName="Body_SPServiceID" />
+            <ScalarProperty Name="Price" ColumnName="Body_Price" />
+            <ScalarProperty Name="OrderID" ColumnName="Body_OrderID" />
+            <ScalarProperty Name="PushID" ColumnName="Body_PushID" />
+          </ComplexProperty>
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
