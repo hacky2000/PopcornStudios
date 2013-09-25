@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="be21d2c5-1170-475c-9b99-f34ad779045e" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:45240/AircraftService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="AircraftService.disco" MetadataType="Disco" ID="78d1668a-abb2-43ae-aa17-407bc63af092" SourceId="1" SourceUrl="http://localhost:45240/AircraftService.svc?disco" />
+    <MetadataFile FileName="AircraftService.wsdl" MetadataType="Wsdl" ID="37350a8b-e8a6-44e0-af9b-bd12f8371c9b" SourceId="1" SourceUrl="http://localhost:45240/AircraftService.svc?wsdl" />
+    <MetadataFile FileName="AircraftService1.xsd" MetadataType="Schema" ID="e379388c-1d5a-4a17-90ce-df4a3ad33cbd" SourceId="1" SourceUrl="http://localhost:45240/AircraftService.svc?xsd=xsd1" />
+    <MetadataFile FileName="AircraftService11.xsd" MetadataType="Schema" ID="2e878645-5e53-4f28-b601-8f99b0fd3ceb" SourceId="1" SourceUrl="http://localhost:45240/AircraftService.svc?xsd=xsd2" />
+    <MetadataFile FileName="AircraftService.xsd" MetadataType="Schema" ID="b8ede0d0-7fd7-439d-ba98-9e6cdf46190f" SourceId="1" SourceUrl="http://localhost:45240/AircraftService.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
