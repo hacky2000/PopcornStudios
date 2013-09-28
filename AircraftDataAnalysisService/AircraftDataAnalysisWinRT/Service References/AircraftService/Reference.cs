@@ -84,6 +84,9 @@ namespace AircraftDataAnalysisWinRT.AircraftService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAircraftService/GetAllAircraftModels", ReplyAction="http://tempuri.org/IAircraftService/GetAllAircraftModelsResponse")]
         System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<AircraftDataAnalysisWinRT.AircraftService.AircraftModel>> GetAllAircraftModelsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAircraftService/AddOrUpdateAircraft", ReplyAction="http://tempuri.org/IAircraftService/AddOrUpdateAircraftResponse")]
+        System.Threading.Tasks.Task<string> AddOrUpdateAircraftAsync(AircraftDataAnalysisWinRT.AircraftService.AircraftModel aircraftModel);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -135,6 +138,10 @@ namespace AircraftDataAnalysisWinRT.AircraftService {
         
         public System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<AircraftDataAnalysisWinRT.AircraftService.AircraftModel>> GetAllAircraftModelsAsync() {
             return base.Channel.GetAllAircraftModelsAsync();
+        }
+        
+        public System.Threading.Tasks.Task<string> AddOrUpdateAircraftAsync(AircraftDataAnalysisWinRT.AircraftService.AircraftModel aircraftModel) {
+            return base.Channel.AddOrUpdateAircraftAsync(aircraftModel);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync() {

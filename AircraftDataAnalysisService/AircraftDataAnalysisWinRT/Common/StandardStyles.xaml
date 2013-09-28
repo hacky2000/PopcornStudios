@@ -1750,7 +1750,7 @@
       FileOpenPickerPage 中显示的用于显示文件预览的 190x130 像素的项模板
       包括详细的工具提示以显示标题和说明文本
   -->
-    <DataTemplate x:Key="StandardFileWithTooltip190x130ItemTemplate">
+     <DataTemplate x:Key="StandardFileWithTooltip190x130ItemTemplate">
         <Grid>
             <Grid Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
                 <Image
@@ -1761,7 +1761,7 @@
                     VerticalAlignment="Center"
                     Stretch="Uniform"/>
             </Grid>
-            <ToolTipService.Placement>鼠标</ToolTipService.Placement>
+            <ToolTipService.Placement>Mouse</ToolTipService.Placement>
             <ToolTipService.ToolTip>
                 <ToolTip>
                     <ToolTip.Style>

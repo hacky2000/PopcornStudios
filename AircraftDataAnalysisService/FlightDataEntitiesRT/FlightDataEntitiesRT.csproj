@@ -99,37 +99,21 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Compile Include="BaseFunction.cs" />
+    <Compile Include="FlyParameter.cs" />
+    <Compile Include="FlyParameterHelper.cs" />
+    <Compile Include="PHYException.cs" />
+    <Compile Include="PHYHeader.cs" />
+    <Compile Include="PHYHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\FlightDataEntities\AircraftInstance.cs">
-      <Link>AircraftInstance.cs</Link>
-    </Compile>
-    <Compile Include="..\FlightDataEntities\AircraftModel.cs">
-      <Link>AircraftModel.cs</Link>
-    </Compile>
-    <Compile Include="..\FlightDataEntities\AircraftMongoDb.cs">
-      <Link>AircraftMongoDb.cs</Link>
-    </Compile>
-    <Compile Include="..\FlightDataEntities\Flight.cs">
-      <Link>Flight.cs</Link>
-    </Compile>
-    <Compile Include="..\FlightDataEntities\FlightParameter.cs">
-      <Link>FlightParameter.cs</Link>
-    </Compile>
-    <Compile Include="..\FlightDataEntities\FlightRawData.cs">
-      <Link>FlightRawData.cs</Link>
-    </Compile>
-    <Compile Include="..\FlightDataEntities\FlightRecordEntity.cs">
-      <Link>FlightRecordEntity.cs</Link>
-    </Compile>
-    <Compile Include="..\FlightDataEntities\FlightRecordPoint.cs">
-      <Link>FlightRecordPoint.cs</Link>
-    </Compile>
-    <Compile Include="..\FlightDataEntities\Level2FlightRecord.cs">
-      <Link>Level2FlightRecord.cs</Link>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\netcore45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

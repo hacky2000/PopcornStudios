@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -13,6 +15,12 @@ namespace FlightDataEntities
     [DataContract]
     public class AircraftModel
     {
+        public ObjectId Id
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// 机型编号
         /// </summary>
@@ -40,6 +48,7 @@ namespace FlightDataEntities
         /// 上次使用时间
         /// </summary>
         [DataMember]
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime LastUsed
         {
             get;

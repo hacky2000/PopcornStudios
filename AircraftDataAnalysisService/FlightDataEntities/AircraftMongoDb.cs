@@ -11,5 +11,7 @@ namespace FlightDataEntities
         public const string DATABASE_COMMON = "AircraftDataAnalysisCommon";
 
         public const string COLLECTION_AIRCRAFT_MODEL = "AircraftModel";
+        public const string COLLECTION_AIRCRAFT_INSTANCE = "AircraftInstance";
+        public const string COLLECTION_FLIGHT_PARAMETER = "FlightParameter";
     }
 }

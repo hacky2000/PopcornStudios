@@ -16,5 +16,11 @@ namespace AircraftDataAnalysisWcfService
 
         [OperationContract]
         FlightDataEntities.AircraftModel[] GetAllAircraftModels();
+
+        [OperationContract]
+        string AddOrUpdateAircraftModel(FlightDataEntities.AircraftModel aircraftModel);
+
+        [OperationContract]
+        string DeleteAircraft(string aircraftModel);
     }
 }

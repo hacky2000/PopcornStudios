@@ -104,9 +104,13 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddFilePage.xaml.cs">
+      <DependentUpon>AddFilePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\AddFileViewModel.cs" />
     <Compile Include="DataModel\AircraftModelDataGroup.cs" />
     <Compile Include="DataModel\AircraftMongoDbDataSource.cs" />
     <Compile Include="DataModel\DataCommon.cs" />
@@ -132,6 +136,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Test\TestAddAircraftModel.xaml.cs">
+      <DependentUpon>TestAddAircraftModel.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AddFilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Common\StandardStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -192,9 +203,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Test\TestAddAircraftModel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\AircraftService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FlightDataEntitiesRT\FlightDataEntitiesRT.csproj">
+      <Project>{fd796cd2-5869-446f-a92c-93ee311c0eed}</Project>
+      <Name>FlightDataEntitiesRT</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="RadControls for Windows 8, Version=2013.2.611">
+      <Name>RadControls for Windows 8</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

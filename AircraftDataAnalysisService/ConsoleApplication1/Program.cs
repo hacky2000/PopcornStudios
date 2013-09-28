@@ -11,6 +11,11 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
+            Program1.Main1(args);
+            Program1.Main2(args);
+            Program1.Main3(args);
+            return;
+
             FlightBinaryDataDefinition definition = new FlightBinaryDataDefinition()
             {
                 #region init

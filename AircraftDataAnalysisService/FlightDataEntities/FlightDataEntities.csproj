@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -42,33 +45,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\FlightDataEntitiesRT\BaseFunction.cs">
+      <Link>FlightDataEntitiesRT\BaseFunction.cs</Link>
+    </Compile>
+    <Compile Include="..\FlightDataEntitiesRT\FlyParameter.cs">
+      <Link>FlightDataEntitiesRT\FlyParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\FlightDataEntitiesRT\PHYException.cs">
+      <Link>FlightDataEntitiesRT\PHYException.cs</Link>
+    </Compile>
+    <Compile Include="..\FlightDataEntitiesRT\PHYHeader.cs">
+      <Link>FlightDataEntitiesRT\PHYHeader.cs</Link>
+    </Compile>
+    <Compile Include="..\FlightDataEntitiesRT\PHYHelper.cs">
+      <Link>FlightDataEntitiesRT\PHYHelper.cs</Link>
+    </Compile>
     <Compile Include="AircraftFault\ConditionRelation.cs" />
     <Compile Include="AircraftFault\Operator.cs" />
     <Compile Include="AircraftFault\ParamCondition.cs" />
     <Compile Include="AircraftInstance.cs" />
     <Compile Include="AircraftModel.cs" />
     <Compile Include="AircraftMongoDb.cs" />
-    <Compile Include="PHYFile\BaseFunction.cs" />
-    <Compile Include="Fault\AircraftFault.cs" />
-    <Compile Include="Fault\BooleanCondition.cs" />
-    <Compile Include="Fault\BoundCondition.cs" />
-    <Compile Include="Fault\EqualCondition.cs" />
-    <Compile Include="Fault\FaultHelper.cs" />
-    <Compile Include="Fault\FlyParameter.cs" />
-    <Compile Include="Fault\ICondition.cs" />
-    <Compile Include="Fault\LargerCondition.cs" />
-    <Compile Include="Fault\ParameterCondition.cs" />
-    <Compile Include="Fault\ParameterType.cs" />
-    <Compile Include="Fault\SmallCondition.cs" />
     <Compile Include="Flight.cs" />
     <Compile Include="FlightParameter.cs" />
     <Compile Include="FlightRawData.cs" />
     <Compile Include="FlightRecordEntity.cs" />
     <Compile Include="FlightRecordPoint.cs" />
     <Compile Include="Level2FlightRecord.cs" />
-    <Compile Include="PHYFile\PHYException.cs" />
-    <Compile Include="PHYFile\PHYHeader.cs" />
-    <Compile Include="PHYFile\PHYHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +87,9 @@
       <Project>{ae5166cd-76b0-4911-bd80-ced9521f37a1}</Project>
       <Name>MongoDB.Driver</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

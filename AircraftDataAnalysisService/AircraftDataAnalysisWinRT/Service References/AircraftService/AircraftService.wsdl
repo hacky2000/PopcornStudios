@@ -19,6 +19,12 @@
   <wsdl:message name="IAircraftService_GetAllAircraftModels_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllAircraftModelsResponse" />
   </wsdl:message>
+  <wsdl:message name="IAircraftService_AddOrUpdateAircraft_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddOrUpdateAircraft" />
+  </wsdl:message>
+  <wsdl:message name="IAircraftService_AddOrUpdateAircraft_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddOrUpdateAircraftResponse" />
+  </wsdl:message>
   <wsdl:portType name="IAircraftService">
     <wsdl:operation name="DoWork">
       <wsdl:input wsaw:Action="http://tempuri.org/IAircraftService/DoWork" message="tns:IAircraftService_DoWork_InputMessage" />
@@ -27,6 +33,10 @@
     <wsdl:operation name="GetAllAircraftModels">
       <wsdl:input wsaw:Action="http://tempuri.org/IAircraftService/GetAllAircraftModels" message="tns:IAircraftService_GetAllAircraftModels_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAircraftService/GetAllAircraftModelsResponse" message="tns:IAircraftService_GetAllAircraftModels_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateAircraft">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAircraftService/AddOrUpdateAircraft" message="tns:IAircraftService_AddOrUpdateAircraft_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAircraftService/AddOrUpdateAircraftResponse" message="tns:IAircraftService_AddOrUpdateAircraft_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IAircraftService" type="tns:IAircraftService">
@@ -42,6 +52,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllAircraftModels">
       <soap:operation soapAction="http://tempuri.org/IAircraftService/GetAllAircraftModels" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOrUpdateAircraft">
+      <soap:operation soapAction="http://tempuri.org/IAircraftService/AddOrUpdateAircraft" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

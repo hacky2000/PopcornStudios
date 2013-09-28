@@ -75,5 +75,16 @@ namespace AircraftDataAnalysisWinRT
             var itemId = ((SampleDataItem)e.ClickedItem).UniqueId;
             this.Frame.Navigate(typeof(ItemDetailPage), itemId);
         }
+
+        private void AddFile_Click(object sender, RoutedEventArgs e)
+        {
+            var itemId = "addfile";
+            this.Frame.Navigate(typeof(AddFilePage), itemId);
+        }
+
+        private void AddAircraftModel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

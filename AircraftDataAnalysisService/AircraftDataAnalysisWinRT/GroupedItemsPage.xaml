@@ -51,7 +51,7 @@
             ItemClick="ItemView_ItemClick">
 
             <GridView.ItemsPanel>
-                <ItemsPanelTemplate>                        
+                <ItemsPanelTemplate>
                     <VirtualizingStackPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
@@ -126,6 +126,10 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Grid.Column="1" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button x:Name="btnAddFile2" Click="AddFile_Click" IsEnabled="True" Content="导入文件"  />
+                <Button x:Name="btnAddAircraftModel" Click="AddAircraftModel_Click" IsEnabled="True" Content="添加机型"/>
+            </StackPanel>
         </Grid>
 
         <VisualStateManager.VisualStateGroups>

@@ -10,3 +10,21 @@ needs.  Care should be taken when altering existing methods and properties as in
 will require corresponding changes to code included in a variety of Visual Studio templates.  For
 example, additional pages added to your project are written assuming that the original methods and
 properties in Common classes are still present and that the names of the types have not changed.
+
+
+
+XAML Page：
+
+GroupedItemsPage: 机型页面
+根据不同机型展示多个架次的数据
+
+GroupDetailPage：单个机型页面
+指定一个机型（导航到当前页）之后，展示机号（AircraftInstance，飞机实例）对应的不同架次
+
+ItemDetailPage：单个架次页面
+指定一个架次（决定了某个机型、某个机号）的数据，有多个飞机参数，多个曲线
+曲线之后会对预设定的飞机参数进行判定，判定后结果展示，可以进行批注等
+此页面可能需要先做，因为需要进行展示测试
+
+AddFilePage：
+确定导入文件，可以选择文件之后展示机型、架次、摘要信息，并且提供导入时候的交互（进度展示、飞机参数判定等）
