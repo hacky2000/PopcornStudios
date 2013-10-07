@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FlightDataEntities.AircraftFault
+namespace FlightDataReading.AircraftFault
 {
     /// <summary>
     /// 条件的运算符

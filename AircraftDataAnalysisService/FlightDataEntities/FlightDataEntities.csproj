@@ -34,6 +34,7 @@
       <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -60,9 +61,6 @@
     <Compile Include="..\FlightDataEntitiesRT\PHYHelper.cs">
       <Link>FlightDataEntitiesRT\PHYHelper.cs</Link>
     </Compile>
-    <Compile Include="AircraftFault\ConditionRelation.cs" />
-    <Compile Include="AircraftFault\Operator.cs" />
-    <Compile Include="AircraftFault\ParamCondition.cs" />
     <Compile Include="AircraftInstance.cs" />
     <Compile Include="AircraftModel.cs" />
     <Compile Include="AircraftMongoDb.cs" />
@@ -71,8 +69,11 @@
     <Compile Include="FlightRawData.cs" />
     <Compile Include="FlightRecordEntity.cs" />
     <Compile Include="FlightRecordPoint.cs" />
+    <Compile Include="Level1FlightRecord.cs" />
     <Compile Include="Level2FlightRecord.cs" />
+    <Compile Include="LevelTopFlightRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RawDataBatch.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AircraftFault.xml" />

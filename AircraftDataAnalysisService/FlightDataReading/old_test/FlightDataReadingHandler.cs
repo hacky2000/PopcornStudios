@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FlightDataEntitiesRT;
+using FlightDataReading.old_test;
 
 namespace FlightDataReading
 {
@@ -17,6 +17,90 @@ namespace FlightDataReading
         public FlightDataReadingHandler(string filePath)
         {
             this.FilePath = filePath;
+        }
+
+        public FlightDataHeader ReadHeader()
+        {
+            if (this.FileInfo == null || this.FileInfo.Exists == false)
+            {
+                throw new IOException("无法读取数据源文件。");
+            }
+
+            BufferedStream stream = new BufferedStream(new FileStream(this.FileInfo.FullName, FileMode.Open));
+            m_stream = stream;
+            using (m_Reader = new BinaryReader(stream))
+            {
+                try
+                {
+                    return DoReadHeaderCore();
+                }
+                catch (Exception e)
+                {//TODO: LOG it
+                    if (this.m_stream != null)
+                    {
+                        this.m_stream.Close();
+                        this.m_stream.Dispose();
+                        this.m_stream = null;
+                    }
+
+                    throw e;
+                }
+            }
+
+            if (this.m_stream != null)
+            {
+                this.m_stream.Close();
+                this.m_stream.Dispose();
+                this.m_stream = null;
+            }
+        }
+
+        private FlightDataHeader DoReadHeaderCore()
+        {
+            FlightDataHeader header = new FlightDataHeader();
+
+            List<FlightDataContentSegment> segments = new List<FlightDataContentSegment>();
+
+            m_Reader.BaseStream.Position = 0;
+            foreach (var seg in this.Definition.HeaderDefinition.Segments)
+            {
+                FlightDataContentSegment content = new FlightDataContentSegment()
+                {
+                    DataTypeStr = seg.DataTypeStr,
+                    SegmentName = seg.SegmentName
+                };
+
+                if (seg.DataTypeStr == DataTypeConverter.FLOAT)
+                {
+                    float floatVal = m_Reader.ReadSingle();
+                    content.Value = floatVal.ToString();
+                }
+                else if (seg.DataTypeStr == DataTypeConverter.INT32)
+                {
+                    int intVal = m_Reader.ReadInt32();
+                    content.Value = intVal.ToString();
+                }
+                else if (seg.DataTypeStr == DataTypeConverter.LONG)
+                {
+                    long longVal = m_Reader.ReadInt64();
+                    content.Value = longVal.ToString();
+                }
+                else if (seg.DataTypeStr == DataTypeConverter.DATETIME)
+                {
+                    content.Value = string.Empty;
+                }
+                else
+                {
+                    byte[] strs = m_Reader.ReadBytes(seg.BytesCount);
+                    content.Value = new string(System.Text.Encoding.Default.GetChars(strs));
+                }
+                segments.Add(content);
+            }
+
+            m_Reader.BaseStream.Position = this.Definition.HeaderDefinition.BytesCount;
+
+            header.Segments = segments.ToArray();
+            return header;
         }
 
         public void Read()
@@ -58,6 +142,75 @@ namespace FlightDataReading
         private void DoCore()
         {
             DateTime start = DateTime.Now;
+
+            m_Reader.BaseStream.Position = this.Definition.HeaderDefinition.BytesCount;
+
+            List<FlightDataContentFrame> frames = new List<FlightDataContentFrame>();
+
+            while (m_Reader.BaseStream.Length > m_Reader.BaseStream.Position + 1)
+            {
+                FlightDataReading.old_test.FlightDataContentFrame frame = new FlightDataContentFrame();
+                long current = m_Reader.BaseStream.Position;
+
+                List<FlightDataContentSegment> segments = new List<FlightDataContentSegment>();
+                foreach (var seg in this.Definition.FrameDefinition.Segments)
+                {
+                    FlightDataContentSegment content = new FlightDataContentSegment()
+                    {
+                        DataTypeStr = seg.DataTypeStr,
+                        SegmentName = seg.SegmentName
+                    };
+
+                    if (seg.DataTypeStr == DataTypeConverter.FLOAT)
+                    {
+                        float floatVal = m_Reader.ReadSingle();
+                        content.Value = floatVal.ToString();
+                    }
+                    else if (seg.DataTypeStr == DataTypeConverter.INT32)
+                    {
+                        int intVal = m_Reader.ReadInt32();
+                        content.Value = intVal.ToString();
+                    }
+                    else if (seg.DataTypeStr == DataTypeConverter.LONG)
+                    {
+                        long longVal = m_Reader.ReadInt64();
+                        content.Value = longVal.ToString();
+                    }
+                    else if (seg.DataTypeStr == DataTypeConverter.DATETIME)
+                    {
+                        content.Value = string.Empty;
+                    }
+                    else
+                    {
+                        byte[] strs = m_Reader.ReadBytes(seg.BytesCount);
+                        content.Value = new string(System.Text.Encoding.Default.GetChars(strs));
+                    }
+                    segments.Add(content);
+                }
+
+                var filtered = segments.Where(
+                     new Func<FlightDataContentSegment, bool>(
+                         delegate(FlightDataContentSegment seg1)
+                         {
+                             if (seg1 == null || string.IsNullOrEmpty(seg1.SegmentName) || seg1.SegmentName == "ID")
+                                 return false;
+                             return true;
+                         }));
+
+                frame.Segments = filtered.ToArray();//segments.ToArray();
+                frames.Add(frame);
+
+                if (this.m_Reader.BaseStream.Position != current + this.Definition.FrameDefinition.BytesCount)
+                {
+                    if (this.m_Reader.BaseStream.Position + 1 >= this.m_Reader.BaseStream.Length)
+                        break;
+                    this.m_Reader.BaseStream.Position = current + this.Definition.FrameDefinition.BytesCount;
+                }
+            }
+
+            this.Frames = frames;
+
+            return;
 
             PHYHeader header = PHYHelper.ReadPHYHeader(m_Reader);
             int secondCount = PHYHelper.GetFlyParamSeconds(header);
@@ -103,7 +256,7 @@ namespace FlightDataReading
                 task2.Wait();
         }
 
-        private void InitLevel2Entities(Dictionary<string, FlyParameter> paramMap, int secondCount)
+        private void InitLevel2Entities(Dictionary<string, FlightDataReading.old_test.FlyParameter> paramMap, int secondCount)
         {
             m_reducedPointsMap = new Dictionary<string, List<FlightRecordPoint>>();
             m_dataHelperMap = new Dictionary<string, Level2DataHelper>();
@@ -205,7 +358,7 @@ namespace FlightDataReading
                 record.MaxValue = helper.MaxValue;
                 record.AvgValue = Convert.ToSingle(helper.SumValue / helper.Count);
 
-                record.Level1FlightRecord = list.ToArray();
+                record.Level1FlightRecords = null;//DEBUG//list.ToArray();
 
                 m_level2DataMap.Add(record.ParameterID, record);
             }
@@ -265,7 +418,7 @@ namespace FlightDataReading
             //DEBUG: 暂时不处理入库
         }
 
-        private Task DoAddFlightRecordAsync(PHYHeader header)
+        private Task DoAddFlightRecordAsync(FlightDataReading.old_test.PHYHeader header)
         {
             return null;
         }
@@ -301,5 +454,9 @@ namespace FlightDataReading
         public string MongoDBConnectionString { get; set; }
 
         public string PreSetAircraftModelName { get; set; }
+
+        public FlightBinaryDataDefinition Definition { get; set; }
+
+        public List<FlightDataContentFrame> Frames { get; set; }
     }
 }

@@ -84,7 +84,6 @@ namespace AircraftDataAnalysisWinRT
 
         private void AddAircraftModel_Click(object sender, RoutedEventArgs e)
         {
-
         }
     }
 }

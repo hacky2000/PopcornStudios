@@ -75,6 +75,141 @@ namespace AircraftDataAnalysisWinRT.AircraftService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="FlightParameter", Namespace="http://schemas.datacontract.org/2004/07/FlightDataEntities")]
+    public partial class FlightParameter : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string CaptionField;
+        
+        private int FrequenceField;
+        
+        private int IndexField;
+        
+        private bool IsConcernedField;
+        
+        private string ModelNameField;
+        
+        private string ParameterIDField;
+        
+        private int SubIndexField;
+        
+        private string UnitField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Caption {
+            get {
+                return this.CaptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CaptionField, value) != true)) {
+                    this.CaptionField = value;
+                    this.RaisePropertyChanged("Caption");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Frequence {
+            get {
+                return this.FrequenceField;
+            }
+            set {
+                if ((this.FrequenceField.Equals(value) != true)) {
+                    this.FrequenceField = value;
+                    this.RaisePropertyChanged("Frequence");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Index {
+            get {
+                return this.IndexField;
+            }
+            set {
+                if ((this.IndexField.Equals(value) != true)) {
+                    this.IndexField = value;
+                    this.RaisePropertyChanged("Index");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsConcerned {
+            get {
+                return this.IsConcernedField;
+            }
+            set {
+                if ((this.IsConcernedField.Equals(value) != true)) {
+                    this.IsConcernedField = value;
+                    this.RaisePropertyChanged("IsConcerned");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ModelName {
+            get {
+                return this.ModelNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ModelNameField, value) != true)) {
+                    this.ModelNameField = value;
+                    this.RaisePropertyChanged("ModelName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ParameterID {
+            get {
+                return this.ParameterIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ParameterIDField, value) != true)) {
+                    this.ParameterIDField = value;
+                    this.RaisePropertyChanged("ParameterID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SubIndex {
+            get {
+                return this.SubIndexField;
+            }
+            set {
+                if ((this.SubIndexField.Equals(value) != true)) {
+                    this.SubIndexField = value;
+                    this.RaisePropertyChanged("SubIndex");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Unit {
+            get {
+                return this.UnitField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UnitField, value) != true)) {
+                    this.UnitField = value;
+                    this.RaisePropertyChanged("Unit");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="AircraftService.IAircraftService")]
     public interface IAircraftService {
@@ -85,8 +220,14 @@ namespace AircraftDataAnalysisWinRT.AircraftService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAircraftService/GetAllAircraftModels", ReplyAction="http://tempuri.org/IAircraftService/GetAllAircraftModelsResponse")]
         System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<AircraftDataAnalysisWinRT.AircraftService.AircraftModel>> GetAllAircraftModelsAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAircraftService/AddOrUpdateAircraft", ReplyAction="http://tempuri.org/IAircraftService/AddOrUpdateAircraftResponse")]
-        System.Threading.Tasks.Task<string> AddOrUpdateAircraftAsync(AircraftDataAnalysisWinRT.AircraftService.AircraftModel aircraftModel);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAircraftService/AddOrUpdateAircraftModel", ReplyAction="http://tempuri.org/IAircraftService/AddOrUpdateAircraftModelResponse")]
+        System.Threading.Tasks.Task<string> AddOrUpdateAircraftModelAsync(AircraftDataAnalysisWinRT.AircraftService.AircraftModel aircraftModel);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAircraftService/DeleteAircraft", ReplyAction="http://tempuri.org/IAircraftService/DeleteAircraftResponse")]
+        System.Threading.Tasks.Task<string> DeleteAircraftAsync(string aircraftModel);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAircraftService/GetAllFlightParameters", ReplyAction="http://tempuri.org/IAircraftService/GetAllFlightParametersResponse")]
+        System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<AircraftDataAnalysisWinRT.AircraftService.FlightParameter>> GetAllFlightParametersAsync(string modelName);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -140,8 +281,16 @@ namespace AircraftDataAnalysisWinRT.AircraftService {
             return base.Channel.GetAllAircraftModelsAsync();
         }
         
-        public System.Threading.Tasks.Task<string> AddOrUpdateAircraftAsync(AircraftDataAnalysisWinRT.AircraftService.AircraftModel aircraftModel) {
-            return base.Channel.AddOrUpdateAircraftAsync(aircraftModel);
+        public System.Threading.Tasks.Task<string> AddOrUpdateAircraftModelAsync(AircraftDataAnalysisWinRT.AircraftService.AircraftModel aircraftModel) {
+            return base.Channel.AddOrUpdateAircraftModelAsync(aircraftModel);
+        }
+        
+        public System.Threading.Tasks.Task<string> DeleteAircraftAsync(string aircraftModel) {
+            return base.Channel.DeleteAircraftAsync(aircraftModel);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<AircraftDataAnalysisWinRT.AircraftService.FlightParameter>> GetAllFlightParametersAsync(string modelName) {
+            return base.Channel.GetAllFlightParametersAsync(modelName);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync() {

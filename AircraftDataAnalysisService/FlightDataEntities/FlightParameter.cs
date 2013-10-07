@@ -95,5 +95,11 @@ namespace FlightDataEntities
         }
 
         #endregion
+
+        /// <summary>
+        /// 数据类型
+        /// </summary>
+        [DataMember]
+        public string ParameterDataType { get; set; }
     }
 }

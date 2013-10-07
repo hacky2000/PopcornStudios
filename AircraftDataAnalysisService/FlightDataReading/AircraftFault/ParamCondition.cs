@@ -1,17 +1,18 @@
-﻿using System;
+﻿using FlightDataEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlightDataEntities.AircraftFault
+namespace FlightDataReading.AircraftFault
 {
     public class ParamCondition
     {
         /// <summary>
-        /// 飞行参数ID（如果有下级节点，则不适用）
+        /// 飞行参数（如果有下级节点，则不适用）
         /// </summary>
-        public string ParameterID
+        public FlightParameter Parameter
         {
             get;
             set;

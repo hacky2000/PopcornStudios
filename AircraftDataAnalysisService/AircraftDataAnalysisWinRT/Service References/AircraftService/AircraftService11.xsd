@@ -14,4 +14,23 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="AircraftModel" nillable="true" type="tns:AircraftModel" />
+  <xs:complexType name="ArrayOfFlightParameter">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FlightParameter" nillable="true" type="tns:FlightParameter" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFlightParameter" nillable="true" type="tns:ArrayOfFlightParameter" />
+  <xs:complexType name="FlightParameter">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Caption" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Frequence" type="xs:int" />
+      <xs:element minOccurs="0" name="Index" type="xs:int" />
+      <xs:element minOccurs="0" name="IsConcerned" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ModelName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParameterID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubIndex" type="xs:int" />
+      <xs:element minOccurs="0" name="Unit" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FlightParameter" nillable="true" type="tns:FlightParameter" />
 </xs:schema>

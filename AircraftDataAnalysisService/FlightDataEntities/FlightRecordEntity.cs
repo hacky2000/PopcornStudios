@@ -78,5 +78,10 @@ namespace FlightDataEntities
                 return 0;
             }
         }
+
+        public Level1FlightRecord ToLevel1FlightRecord()
+        {
+            return new Level1FlightRecord();
+        }
     }
 }

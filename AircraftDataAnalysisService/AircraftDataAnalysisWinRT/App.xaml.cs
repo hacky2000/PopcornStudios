@@ -47,7 +47,7 @@ namespace AircraftDataAnalysisWinRT
 
             // 不要在窗口已包含内容时重复应用程序初始化，
             // 只需确保窗口处于活动状态
-            
+
             if (rootFrame == null)
             {
                 // 创建要充当导航上下文的框架，并导航到第一页
@@ -83,7 +83,8 @@ namespace AircraftDataAnalysisWinRT
                 //}
 
                 //test debug
-                if (!rootFrame.Navigate(typeof(Test.TestAddAircraftModel), "AllGroups"))
+                if (!rootFrame.Navigate(typeof(Test.TestReadFile), "AllGroups"))
+                // if (!rootFrame.Navigate(typeof(Test.TestAddAircraftModel), "AllGroups"))
                 {
                     throw new Exception("Failed to create initial page");
                 }

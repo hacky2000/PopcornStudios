@@ -100,8 +100,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BaseFunction.cs" />
+    <Compile Include="Decisions\ConditionRelation.cs" />
+    <Compile Include="Decisions\Decision.cs" />
+    <Compile Include="Decisions\IDecision.cs" />
+    <Compile Include="Decisions\SubCondition.cs" />
     <Compile Include="FlyParameter.cs" />
     <Compile Include="FlyParameterHelper.cs" />
+    <Compile Include="ParameterRawData.cs" />
     <Compile Include="PHYException.cs" />
     <Compile Include="PHYHeader.cs" />
     <Compile Include="PHYHelper.cs" />

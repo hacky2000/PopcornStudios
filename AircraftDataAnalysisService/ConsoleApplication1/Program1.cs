@@ -92,14 +92,13 @@ namespace ConsoleApplication1
                 IEnumerable<XElement> elements = root.Elements("Parameter");
                 if (elements != null && elements.Count() > 0)
                 {
-                    int counter = 0;
                     var result = from one in elements
                                  select new FlightDataEntities.FlightParameter()
                                  {
                                      IsConcerned = true,
                                      Frequence = Convert.ToInt32(one.Attribute("Frequence").Value),
                                      Caption = one.Attribute("Caption").Value,
-                                     ParameterID = modelName + "_" + (++counter).ToString(),
+                                     ParameterID = modelName + "_" + one.Attribute("Index").Value + "_" + one.Attribute("SubIndex").Value,
                                      Index = Convert.ToInt32(one.Attribute("Index").Value),
                                      ModelName = modelName,
                                      SubIndex = Convert.ToInt32(one.Attribute("SubIndex").Value),

@@ -4,10 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Foundation;
 
 namespace AircraftDataAnalysisWinRT.DataModel
 {
-    public class AddFileViewModel : DataCommon
+    public class AddFileViewModel : DataCommon, IAsyncActionWithProgress<int>
     {
         private Windows.Storage.StorageFile file;
 
@@ -108,9 +109,152 @@ namespace AircraftDataAnalysisWinRT.DataModel
             set { this.SetProperty(ref this.m_currentFileName, value); }
         }
 
+        private Task m_task = null;
+
         internal void ImportData()
         {
-            throw new NotImplementedException();
+            this.Status = AsyncStatus.Started;
+            this.ErrorCode = null;
+            this.
+            m_task = new Task(new Action(delegate()
+            {
+                this.DoImportData();
+            }));
+            m_task.RunSynchronously();
+        }
+
+        private async void DoImportData()
+        {
+            int seconds = FlightDataEntitiesRT.PHYHelper.GetFlyParamSeconds(m_header);
+            var openStreamTask = this.file.OpenStreamForReadAsync();
+            var getParamsTask = this.GetParametersAsync();
+
+            Stream stream = await openStreamTask;
+            IEnumerable<FlightDataEntitiesRT.FlyParameter> paramRTs = await getParamsTask;
+
+            using (BinaryReader reader = new BinaryReader(stream))
+            {
+                for (int current = 0; current <= seconds; current++)
+                {
+                    this.ReadOneSecondAndImport(current, reader, this.m_header, paramRTs);
+
+                    int progress = Convert.ToInt32(100.0 * (double)current / (double)seconds);
+                    
+                    if (this.Progress != null)
+                    {
+                        this.Progress(this, progress);
+                    }
+                }
+            }
+
+            if (this.Completed != null)
+            {
+                this.Completed(this, this.Status);
+            }
+        }
+
+        private Task<IEnumerable<FlightDataEntitiesRT.FlyParameter>> GetParametersAsync()
+        {
+            Task<IEnumerable<FlightDataEntitiesRT.FlyParameter>> task
+                = new Task<IEnumerable<FlightDataEntitiesRT.FlyParameter>>(
+                new Func<IEnumerable<FlightDataEntitiesRT.FlyParameter>>(delegate()
+            {
+                //debug
+                AircraftService.AircraftModel model = new AircraftService.AircraftModel()
+                {
+                    ModelName = "F4D",
+                    Caption = "",
+                    LastUsed = DateTime.Now
+                };
+
+                AircraftService.AircraftServiceClient client = new AircraftService.AircraftServiceClient();
+                var modelParamsTask = client.GetAllFlightParametersAsync(model.ModelName);
+                modelParamsTask.Wait();
+
+                var result = modelParamsTask.Result;
+                var resultRT = from one in result
+                               select new FlightDataEntitiesRT.FlyParameter()
+                               {
+                                   Index = one.Index,
+                                   SubIndex = one.SubIndex,
+                                   Caption = one.Caption,
+                                   Frequence = one.Frequence,
+                                   Unit = one.Unit
+                               };
+
+                return resultRT;
+            }));
+
+            task.RunSynchronously();
+
+            return task;
+        }
+
+        private void ReadOneSecondAndImport(int current, BinaryReader reader, FlightDataEntitiesRT.PHYHeader header,
+            IEnumerable<FlightDataEntitiesRT.FlyParameter> paramList)
+        {
+            foreach (FlightDataEntitiesRT.FlyParameter parameter in paramList)
+            {
+                float[] datas = FlightDataEntitiesRT.PHYHelper.ReadFlyParameter(reader, current, header, parameter);
+
+            }
+        }
+
+        public AsyncActionWithProgressCompletedHandler<int> Completed
+        {
+            get;
+            set;
+        }
+
+        public void GetResults()
+        {
+            if (this.Status == AsyncStatus.Completed)
+                return;
+
+            m_task.Wait();
+        }
+
+        public AsyncActionProgressHandler<int> Progress
+        {
+            get;
+            set;
+        }
+
+        public void Cancel()
+        {
+            this.Status = AsyncStatus.Canceled;
+        }
+
+        public void Close()
+        {
+            this.Status = AsyncStatus.Completed;
+        }
+
+        private Exception m_errorCode = null;
+
+        public Exception ErrorCode
+        {
+            get { return m_errorCode; }
+            protected set
+            {
+                this.SetProperty<Exception>(ref m_errorCode, value);
+            }
+        }
+
+        public uint Id
+        {
+            get { return Convert.ToUInt32(this.GetHashCode()); }
+        }
+
+        private AsyncStatus m_status = AsyncStatus.Completed;
+
+        public AsyncStatus Status
+        {
+            get { return m_status; }
+            protected set
+            {
+                this.SetProperty<AsyncStatus>(ref m_status, value);
+            }
         }
     }
 }

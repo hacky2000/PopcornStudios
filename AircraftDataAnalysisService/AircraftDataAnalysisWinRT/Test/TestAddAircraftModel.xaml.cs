@@ -75,7 +75,7 @@ namespace AircraftDataAnalysisWinRT.Test
                 LastUsed = DateTime.Now
             };
 
-            client.AddOrUpdateAircraftAsync(model);
+            client.AddOrUpdateAircraftModelAsync(model);
         }
     }
 }

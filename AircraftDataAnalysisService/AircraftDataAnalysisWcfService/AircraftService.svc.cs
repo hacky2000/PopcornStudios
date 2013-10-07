@@ -9,6 +9,7 @@ using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
+using FlightDataReading;
 
 namespace AircraftDataAnalysisWcfService
 {
@@ -53,7 +54,7 @@ namespace AircraftDataAnalysisWcfService
 
         private MongoServer GetMongoServer()
         {
-            var mongoUrl = new MongoUrl(this.GetMongoCollectionString());
+            var mongoUrl = new MongoUrl(this.GetMongoConnectionString());
             var clientSettings = MongoClientSettings.FromUrl(mongoUrl);
             if (!clientSettings.WriteConcern.Enabled)
             {
@@ -63,7 +64,7 @@ namespace AircraftDataAnalysisWcfService
             return mongoClient.GetServer();
         }
 
-        private string GetMongoCollectionString()
+        private string GetMongoConnectionString()
         {
             return this.m_mongoConnectionString;
         }
@@ -346,7 +347,7 @@ namespace AircraftDataAnalysisWcfService
                 AircraftMongoDb.DATABASE_COMMON, AircraftMongoDb.COLLECTION_FLIGHT_PARAMETER);
         }
 
-        public IEnumerable<FlightParameter> GetAllFlightParameters(string modelName)
+        public FlightParameter[] GetAllFlightParameters(string modelName)
         {
             MongoServer mongoServer = this.GetMongoServer();
             if (mongoServer != null)
@@ -375,6 +376,94 @@ namespace AircraftDataAnalysisWcfService
             throw new Exception(string.Format(
                 "No MongoServer {0} finded, or no MongoCollection {1} finded.",
                 AircraftMongoDb.DATABASE_COMMON, AircraftMongoDb.COLLECTION_FLIGHT_PARAMETER));
+        }
+
+        public string InsertRawDataBatch(RawDataBatch batchData)
+        {
+            if (!this.IsValidAircraftInfo(batchData))
+                return "缺少机型或架次信息。";
+            if (batchData.Datas == null || batchData.Datas.Length <= 0)
+                return "无数据输入。";
+
+            MongoServer mongoServer = this.GetMongoServer();
+            if (mongoServer != null)
+            {
+                MongoDatabase database = mongoServer.GetDatabase(batchData.Flight.Aircraft.AircraftModel.ModelName);
+                if (database != null)
+                {
+                    MongoCollection<Level1FlightRecord> modelCollection
+                        = database.GetCollection<Level1FlightRecord>(
+                        AircraftMongoDb.COLLECTION_FLIGHT_RECORD_LEVEL1 +
+                        batchData.Flight.FlightID);
+
+                    List<Level1FlightRecord> level1Records = new List<Level1FlightRecord>();
+
+                    foreach (var one in batchData.Datas)
+                    {
+                        //数据精简
+                        FlightRawData entity = new FlightRawData()
+                        {
+                            ParameterID = one.ParameterID,
+                            Values = one.Values,
+                            Second = batchData.Second
+                        };
+                        //DEBUG
+                        //level1Records.Add(entity.ToLevel1FlightRecord());
+                    }
+
+                    modelCollection.InsertBatch(level1Records);
+                }
+            }
+
+            return string.Empty;
+        }
+
+        private bool IsValidAircraftInfo(RawDataBatch batchData)
+        {
+            if (batchData == null)
+                return false;
+
+            return IsValidAircraftInfo(batchData.Flight);
+        }
+
+        private bool IsValidAircraftInfo(Flight flight)
+        {
+            if (flight == null)
+                return false;
+
+            if (flight == null || string.IsNullOrEmpty(flight.FlightID)
+                || flight.Aircraft == null || flight.Aircraft.AircraftModel == null ||
+                string.IsNullOrEmpty(flight.Aircraft.AircraftModel.ModelName))
+                return false;
+
+            return true;
+        }
+
+        public string OptimizeForLevel2Data(Flight flight)
+        {
+            if (!this.IsValidAircraftInfo(flight))
+                return "缺少机型或架次信息。";
+
+
+            //产生汇总数据
+            MongoServer mongoServer = this.GetMongoServer();
+            if (mongoServer != null)
+            {
+                MongoDatabase database = mongoServer.GetDatabase(flight.Aircraft.AircraftModel.ModelName);
+                if (database != null)
+                {
+                    MongoCollection<Level1FlightRecord> modelCollection
+                        = database.GetCollection<Level1FlightRecord>(
+                        AircraftMongoDb.COLLECTION_FLIGHT_RECORD_LEVEL1 +
+                        flight.FlightID);
+
+                    Level2FlightRecord[] records =
+                        null;//DEBUG
+                    //  FlightDataEntityTransform.FromLevel1RecordCollectionToLevel2Record(flight, modelCollection);
+                }
+            }
+
+            return string.Empty;
         }
     }
 }

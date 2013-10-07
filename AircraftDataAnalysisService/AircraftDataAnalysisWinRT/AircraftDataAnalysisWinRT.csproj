@@ -140,6 +140,9 @@
     <Compile Include="Test\TestAddAircraftModel.xaml.cs">
       <DependentUpon>TestAddAircraftModel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Test\TestReadFile.xaml.cs">
+      <DependentUpon>TestReadFile.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -149,6 +152,9 @@
     <None Include="AircraftDataAnalysisWinRT_TemporaryKey.pfx" />
     <None Include="Properties\ServiceReferences.Designer.ClientConfig" />
     <None Include="Service References\AircraftService\AircraftDataAnalysisWinRT.AircraftService.AircraftModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AircraftService\AircraftDataAnalysisWinRT.AircraftService.FlightParameter.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\AircraftService\AircraftService.wsdl" />
@@ -204,6 +210,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Test\TestAddAircraftModel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test\TestReadFile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -6,6 +6,10 @@
   <Parameter Index="4" SubIndex="-1" Caption="右发机匣振动" Frequence="4" Unit="mm/s"/>
   <Parameter Index="5" SubIndex="-1" Caption="左发滑油压力" Frequence="8" Unit="Kg/cm2"/>
   <Parameter Index="6" SubIndex="-1" Caption="右发滑油压力" Frequence="4" Unit="Kg/cm2"/>
+  <Parameter Index="7" SubIndex="-1" Caption="左发低压压气机进口导流叶片转角位置" Frequence="8" Unit="°"/>
+  <Parameter Index="8" SubIndex="-1" Caption="右发低压压气机进口导流叶片转角位置" Frequence="8" Unit="°"/>
+  <Parameter Index="9" SubIndex="-1" Caption="左发高压压气机进口导流叶片转角位置" Frequence="8" Unit="°"/>
+  <Parameter Index="10" SubIndex="-1" Caption="右发高压压气机进口导流叶片转角位置" Frequence="8" Unit="°"/>
   <Parameter Index="11" SubIndex="-1" Caption="左发进口空气温度" Frequence="4" Unit="K"/>
   <Parameter Index="12" SubIndex="-1" Caption="左发入口处气压" Frequence="4" Unit="Pa"/>
   <Parameter Index="13" SubIndex="-1" Caption="右发入口处气压" Frequence="4" Unit="Pa"/>
@@ -27,10 +31,6 @@
   <Parameter Index="38" SubIndex="-1" Caption="右前缘襟翼位置" Frequence="8" Unit="°"/>
   <Parameter Index="35" SubIndex="-1" Caption="俯仰调整片效应机构连杆位置" Frequence="8" Unit="°"/>
   <Parameter Index="36" SubIndex="-1" Caption="倾斜调整片效应机构连杆位置" Frequence="8" Unit="°"/>
-  <Parameter Index="7" SubIndex="-1" Caption="左发低压压气机进口导流叶片转角位置" Frequence="8" Unit="°"/>
-  <Parameter Index="8" SubIndex="-1" Caption="右发低压压气机进口导流叶片转角位置" Frequence="8" Unit="°"/>
-  <Parameter Index="9" SubIndex="-1" Caption="左发高压压气机进口导流叶片转角位置" Frequence="8" Unit="°"/>
-  <Parameter Index="10" SubIndex="-1" Caption="右发高压压气机进口导流叶片转角位置" Frequence="8" Unit="°"/>
   <Parameter Index="39" SubIndex="-1" Caption="脚蹬位置" Frequence="8" Unit="°"/>
   <Parameter Index="40" SubIndex="-1" Caption="左前翼位置" Frequence="4" Unit="°"/>
   <Parameter Index="41" SubIndex="-1" Caption="右前翼位置" Frequence="4" Unit="°"/>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FlightDataEntities
 {
-    public class Level2FlightRecord
+    public class LevelTopFlightRecord
     {
         /// <summary>
         /// 记录ID，用作关联、定位
@@ -86,7 +86,7 @@ namespace FlightDataEntities
         /// <summary>
         /// 第一层飞行记录数据，经过一定处理，比如每秒钟只保留一个点
         /// </summary>
-        public Level1FlightRecord[] Level1FlightRecords
+        public Level2FlightRecord[] Level2FlightRecord
         {
             get;
             set;

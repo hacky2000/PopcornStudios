@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightDataEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -22,5 +23,11 @@ namespace AircraftDataAnalysisWcfService
 
         [OperationContract]
         string DeleteAircraft(string aircraftModel);
+
+        [OperationContract]
+        FlightParameter[] GetAllFlightParameters(string modelName);
+
+        [OperationContract]
+        string InsertRawDataBatch(RawDataBatch batchData);
     }
 }

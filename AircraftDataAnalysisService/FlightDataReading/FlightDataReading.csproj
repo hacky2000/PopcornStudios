@@ -34,6 +34,7 @@
       <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,10 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AircraftCollections.cs" />
-    <Compile Include="FlightDataReadingHandler.cs" />
+    <Compile Include="AircraftFault\MongoQueryBuilder.cs" />
+    <Compile Include="old_test\AircraftCollections.cs" />
+    <Compile Include="AircraftFault\ConditionRelation.cs" />
+    <Compile Include="AircraftFault\Operator.cs" />
+    <Compile Include="AircraftFault\ParamCondition.cs" />
+    <Compile Include="DataPointTransforms\DefaultFlightDataEntityTransformStrategy.cs" />
+    <Compile Include="DataPointTransforms\DefaultLevel1ToLevelTopRecordStrategy.cs" />
+    <Compile Include="DataPointTransforms\IFlightDataEntityTransformStrategy.cs" />
+    <Compile Include="FlightDataEntityTransform.cs" />
+    <Compile Include="old_test\FlightDataReadingHandler.cs" />
     <Compile Include="old_test\BaseFunction.cs" />
-    <Compile Include="old_test\DataTypeConverter.cs" />
+    <Compile Include="DataTypeConverter.cs" />
     <Compile Include="old_test\FlightBinaryDataContentFrameDefinition.cs" />
     <Compile Include="old_test\FlightBinaryDataContentSegmentDefinition.cs" />
     <Compile Include="old_test\FlightBinaryDataDefinition.cs" />

@@ -38,5 +38,10 @@ namespace FlightDataEntities
             get;
             set;
         }
+
+        //public Level1FlightRecord ToLevel1FlightRecord()
+        //{
+        //    return FlightDataEntityTransform.FromFlightRawDataToLevel1FlightRecord(this);
+        //}
     }
 }
