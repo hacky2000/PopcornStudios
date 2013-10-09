@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace FlightDataReading.old_test
+namespace FlightDataReading.AircraftModel1
 {
     public class FlyParameter//: NPlot.IParameter
     {

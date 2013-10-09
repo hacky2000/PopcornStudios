@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AircraftService.svc" />
+    <Content Include="FlightParameters.xml" />
     <Content Include="Service1.svc" />
     <Content Include="Web.config" />
   </ItemGroup>

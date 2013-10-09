@@ -5,6 +5,8 @@
       <xsd:import schemaLocation="http://localhost:45240/AircraftService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:45240/AircraftService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:45240/AircraftService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/FlightDataEntities" />
+      <xsd:import schemaLocation="http://localhost:45240/AircraftService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:45240/AircraftService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/MongoDB.Bson" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IAircraftService_DoWork_InputMessage">
@@ -13,50 +15,40 @@
   <wsdl:message name="IAircraftService_DoWork_OutputMessage">
     <wsdl:part name="parameters" element="tns:DoWorkResponse" />
   </wsdl:message>
-  <wsdl:message name="IAircraftService_GetAllAircraftModels_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetAllAircraftModels" />
-  </wsdl:message>
-  <wsdl:message name="IAircraftService_GetAllAircraftModels_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetAllAircraftModelsResponse" />
-  </wsdl:message>
-  <wsdl:message name="IAircraftService_AddOrUpdateAircraftModel_InputMessage">
-    <wsdl:part name="parameters" element="tns:AddOrUpdateAircraftModel" />
-  </wsdl:message>
-  <wsdl:message name="IAircraftService_AddOrUpdateAircraftModel_OutputMessage">
-    <wsdl:part name="parameters" element="tns:AddOrUpdateAircraftModelResponse" />
-  </wsdl:message>
-  <wsdl:message name="IAircraftService_DeleteAircraft_InputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteAircraft" />
-  </wsdl:message>
-  <wsdl:message name="IAircraftService_DeleteAircraft_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteAircraftResponse" />
-  </wsdl:message>
   <wsdl:message name="IAircraftService_GetAllFlightParameters_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAllFlightParameters" />
   </wsdl:message>
   <wsdl:message name="IAircraftService_GetAllFlightParameters_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllFlightParametersResponse" />
   </wsdl:message>
+  <wsdl:message name="IAircraftService_InsertRawDataBatch_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertRawDataBatch" />
+  </wsdl:message>
+  <wsdl:message name="IAircraftService_InsertRawDataBatch_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertRawDataBatchResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAircraftService_GetCurrentAircraftModel_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCurrentAircraftModel" />
+  </wsdl:message>
+  <wsdl:message name="IAircraftService_GetCurrentAircraftModel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCurrentAircraftModelResponse" />
+  </wsdl:message>
   <wsdl:portType name="IAircraftService">
     <wsdl:operation name="DoWork">
       <wsdl:input wsaw:Action="http://tempuri.org/IAircraftService/DoWork" message="tns:IAircraftService_DoWork_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAircraftService/DoWorkResponse" message="tns:IAircraftService_DoWork_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetAllAircraftModels">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAircraftService/GetAllAircraftModels" message="tns:IAircraftService_GetAllAircraftModels_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAircraftService/GetAllAircraftModelsResponse" message="tns:IAircraftService_GetAllAircraftModels_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="AddOrUpdateAircraftModel">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAircraftService/AddOrUpdateAircraftModel" message="tns:IAircraftService_AddOrUpdateAircraftModel_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAircraftService/AddOrUpdateAircraftModelResponse" message="tns:IAircraftService_AddOrUpdateAircraftModel_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DeleteAircraft">
-      <wsdl:input wsaw:Action="http://tempuri.org/IAircraftService/DeleteAircraft" message="tns:IAircraftService_DeleteAircraft_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IAircraftService/DeleteAircraftResponse" message="tns:IAircraftService_DeleteAircraft_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetAllFlightParameters">
       <wsdl:input wsaw:Action="http://tempuri.org/IAircraftService/GetAllFlightParameters" message="tns:IAircraftService_GetAllFlightParameters_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAircraftService/GetAllFlightParametersResponse" message="tns:IAircraftService_GetAllFlightParameters_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertRawDataBatch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAircraftService/InsertRawDataBatch" message="tns:IAircraftService_InsertRawDataBatch_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAircraftService/InsertRawDataBatchResponse" message="tns:IAircraftService_InsertRawDataBatch_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrentAircraftModel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAircraftService/GetCurrentAircraftModel" message="tns:IAircraftService_GetCurrentAircraftModel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAircraftService/GetCurrentAircraftModelResponse" message="tns:IAircraftService_GetCurrentAircraftModel_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IAircraftService" type="tns:IAircraftService">
@@ -70,35 +62,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetAllAircraftModels">
-      <soap:operation soapAction="http://tempuri.org/IAircraftService/GetAllAircraftModels" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AddOrUpdateAircraftModel">
-      <soap:operation soapAction="http://tempuri.org/IAircraftService/AddOrUpdateAircraftModel" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeleteAircraft">
-      <soap:operation soapAction="http://tempuri.org/IAircraftService/DeleteAircraft" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetAllFlightParameters">
       <soap:operation soapAction="http://tempuri.org/IAircraftService/GetAllFlightParameters" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertRawDataBatch">
+      <soap:operation soapAction="http://tempuri.org/IAircraftService/InsertRawDataBatch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrentAircraftModel">
+      <soap:operation soapAction="http://tempuri.org/IAircraftService/GetCurrentAircraftModel" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

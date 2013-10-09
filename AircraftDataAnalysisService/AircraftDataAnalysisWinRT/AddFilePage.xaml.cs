@@ -84,13 +84,13 @@ namespace AircraftDataAnalysisWinRT
 
         private void ImportModelData_Click(object sender, RoutedEventArgs e)
         {
-            if (this.ViewModel != null)
-            {
-                this.ViewModel.ImportData();
+            //if (this.ViewModel != null)
+            //{
+            //    this.ViewModel.ImportData();
 
-                string uniqueID = this.ViewModel.UniqueId;
-                this.Frame.Navigate(typeof(ItemDetailPage), uniqueID);
-            }
+            //    string uniqueID = this.ViewModel.UniqueId;
+            //    this.Frame.Navigate(typeof(ItemDetailPage), uniqueID);
+            //}
         }
     }
 }

@@ -17,66 +17,6 @@ namespace AircraftDataAnalysisWinRT.AircraftService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AircraftModel", Namespace="http://schemas.datacontract.org/2004/07/FlightDataEntities")]
-    public partial class AircraftModel : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string CaptionField;
-        
-        private System.DateTime LastUsedField;
-        
-        private string ModelNameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Caption {
-            get {
-                return this.CaptionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CaptionField, value) != true)) {
-                    this.CaptionField = value;
-                    this.RaisePropertyChanged("Caption");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime LastUsed {
-            get {
-                return this.LastUsedField;
-            }
-            set {
-                if ((this.LastUsedField.Equals(value) != true)) {
-                    this.LastUsedField = value;
-                    this.RaisePropertyChanged("LastUsed");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ModelName {
-            get {
-                return this.ModelNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ModelNameField, value) != true)) {
-                    this.ModelNameField = value;
-                    this.RaisePropertyChanged("ModelName");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="FlightParameter", Namespace="http://schemas.datacontract.org/2004/07/FlightDataEntities")]
     public partial class FlightParameter : object, System.ComponentModel.INotifyPropertyChanged {
         
@@ -89,6 +29,8 @@ namespace AircraftDataAnalysisWinRT.AircraftService {
         private bool IsConcernedField;
         
         private string ModelNameField;
+        
+        private string ParameterDataTypeField;
         
         private string ParameterIDField;
         
@@ -162,6 +104,19 @@ namespace AircraftDataAnalysisWinRT.AircraftService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ParameterDataType {
+            get {
+                return this.ParameterDataTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ParameterDataTypeField, value) != true)) {
+                    this.ParameterDataTypeField = value;
+                    this.RaisePropertyChanged("ParameterDataType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string ParameterID {
             get {
                 return this.ParameterIDField;
@@ -210,6 +165,411 @@ namespace AircraftDataAnalysisWinRT.AircraftService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RawDataBatch", Namespace="http://schemas.datacontract.org/2004/07/FlightDataEntities")]
+    public partial class RawDataBatch : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private System.Collections.ObjectModel.ObservableCollection<AircraftDataAnalysisWinRT.AircraftService.RawDataParamBatch> DatasField;
+        
+        private AircraftDataAnalysisWinRT.AircraftService.Flight FlightField;
+        
+        private int SecondField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.ObjectModel.ObservableCollection<AircraftDataAnalysisWinRT.AircraftService.RawDataParamBatch> Datas {
+            get {
+                return this.DatasField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DatasField, value) != true)) {
+                    this.DatasField = value;
+                    this.RaisePropertyChanged("Datas");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public AircraftDataAnalysisWinRT.AircraftService.Flight Flight {
+            get {
+                return this.FlightField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FlightField, value) != true)) {
+                    this.FlightField = value;
+                    this.RaisePropertyChanged("Flight");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Second {
+            get {
+                return this.SecondField;
+            }
+            set {
+                if ((this.SecondField.Equals(value) != true)) {
+                    this.SecondField = value;
+                    this.RaisePropertyChanged("Second");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Flight", Namespace="http://schemas.datacontract.org/2004/07/FlightDataEntities")]
+    public partial class Flight : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private AircraftDataAnalysisWinRT.AircraftService.AircraftInstance AircraftField;
+        
+        private int EndSecondField;
+        
+        private string FlightIDField;
+        
+        private string FlightNameField;
+        
+        private AircraftDataAnalysisWinRT.AircraftService.ObjectId IdField;
+        
+        private int StartSecondField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public AircraftDataAnalysisWinRT.AircraftService.AircraftInstance Aircraft {
+            get {
+                return this.AircraftField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AircraftField, value) != true)) {
+                    this.AircraftField = value;
+                    this.RaisePropertyChanged("Aircraft");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EndSecond {
+            get {
+                return this.EndSecondField;
+            }
+            set {
+                if ((this.EndSecondField.Equals(value) != true)) {
+                    this.EndSecondField = value;
+                    this.RaisePropertyChanged("EndSecond");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FlightID {
+            get {
+                return this.FlightIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FlightIDField, value) != true)) {
+                    this.FlightIDField = value;
+                    this.RaisePropertyChanged("FlightID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FlightName {
+            get {
+                return this.FlightNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FlightNameField, value) != true)) {
+                    this.FlightNameField = value;
+                    this.RaisePropertyChanged("FlightName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public AircraftDataAnalysisWinRT.AircraftService.ObjectId Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StartSecond {
+            get {
+                return this.StartSecondField;
+            }
+            set {
+                if ((this.StartSecondField.Equals(value) != true)) {
+                    this.StartSecondField = value;
+                    this.RaisePropertyChanged("StartSecond");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RawDataParamBatch", Namespace="http://schemas.datacontract.org/2004/07/FlightDataEntities")]
+    public partial class RawDataParamBatch : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string ParameterIDField;
+        
+        private System.Collections.ObjectModel.ObservableCollection<float> ValuesField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ParameterID {
+            get {
+                return this.ParameterIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ParameterIDField, value) != true)) {
+                    this.ParameterIDField = value;
+                    this.RaisePropertyChanged("ParameterID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.ObjectModel.ObservableCollection<float> Values {
+            get {
+                return this.ValuesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ValuesField, value) != true)) {
+                    this.ValuesField = value;
+                    this.RaisePropertyChanged("Values");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AircraftInstance", Namespace="http://schemas.datacontract.org/2004/07/FlightDataEntities")]
+    public partial class AircraftInstance : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private AircraftDataAnalysisWinRT.AircraftService.AircraftModel AircraftModelField;
+        
+        private string AircraftNumberField;
+        
+        private System.DateTime LastUsedField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public AircraftDataAnalysisWinRT.AircraftService.AircraftModel AircraftModel {
+            get {
+                return this.AircraftModelField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AircraftModelField, value) != true)) {
+                    this.AircraftModelField = value;
+                    this.RaisePropertyChanged("AircraftModel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AircraftNumber {
+            get {
+                return this.AircraftNumberField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AircraftNumberField, value) != true)) {
+                    this.AircraftNumberField = value;
+                    this.RaisePropertyChanged("AircraftNumber");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime LastUsed {
+            get {
+                return this.LastUsedField;
+            }
+            set {
+                if ((this.LastUsedField.Equals(value) != true)) {
+                    this.LastUsedField = value;
+                    this.RaisePropertyChanged("LastUsed");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ObjectId", Namespace="http://schemas.datacontract.org/2004/07/MongoDB.Bson")]
+    public partial struct ObjectId : System.ComponentModel.INotifyPropertyChanged {
+        
+        private int _incrementField;
+        
+        private int _machineField;
+        
+        private short _pidField;
+        
+        private int _timestampField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int _increment {
+            get {
+                return this._incrementField;
+            }
+            set {
+                if ((this._incrementField.Equals(value) != true)) {
+                    this._incrementField = value;
+                    this.RaisePropertyChanged("_increment");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int _machine {
+            get {
+                return this._machineField;
+            }
+            set {
+                if ((this._machineField.Equals(value) != true)) {
+                    this._machineField = value;
+                    this.RaisePropertyChanged("_machine");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public short _pid {
+            get {
+                return this._pidField;
+            }
+            set {
+                if ((this._pidField.Equals(value) != true)) {
+                    this._pidField = value;
+                    this.RaisePropertyChanged("_pid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int _timestamp {
+            get {
+                return this._timestampField;
+            }
+            set {
+                if ((this._timestampField.Equals(value) != true)) {
+                    this._timestampField = value;
+                    this.RaisePropertyChanged("_timestamp");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AircraftModel", Namespace="http://schemas.datacontract.org/2004/07/FlightDataEntities")]
+    public partial class AircraftModel : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string CaptionField;
+        
+        private System.DateTime LastUsedField;
+        
+        private string ModelNameField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Caption {
+            get {
+                return this.CaptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CaptionField, value) != true)) {
+                    this.CaptionField = value;
+                    this.RaisePropertyChanged("Caption");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime LastUsed {
+            get {
+                return this.LastUsedField;
+            }
+            set {
+                if ((this.LastUsedField.Equals(value) != true)) {
+                    this.LastUsedField = value;
+                    this.RaisePropertyChanged("LastUsed");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ModelName {
+            get {
+                return this.ModelNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ModelNameField, value) != true)) {
+                    this.ModelNameField = value;
+                    this.RaisePropertyChanged("ModelName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="AircraftService.IAircraftService")]
     public interface IAircraftService {
@@ -217,17 +577,14 @@ namespace AircraftDataAnalysisWinRT.AircraftService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAircraftService/DoWork", ReplyAction="http://tempuri.org/IAircraftService/DoWorkResponse")]
         System.Threading.Tasks.Task DoWorkAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAircraftService/GetAllAircraftModels", ReplyAction="http://tempuri.org/IAircraftService/GetAllAircraftModelsResponse")]
-        System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<AircraftDataAnalysisWinRT.AircraftService.AircraftModel>> GetAllAircraftModelsAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAircraftService/AddOrUpdateAircraftModel", ReplyAction="http://tempuri.org/IAircraftService/AddOrUpdateAircraftModelResponse")]
-        System.Threading.Tasks.Task<string> AddOrUpdateAircraftModelAsync(AircraftDataAnalysisWinRT.AircraftService.AircraftModel aircraftModel);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAircraftService/DeleteAircraft", ReplyAction="http://tempuri.org/IAircraftService/DeleteAircraftResponse")]
-        System.Threading.Tasks.Task<string> DeleteAircraftAsync(string aircraftModel);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAircraftService/GetAllFlightParameters", ReplyAction="http://tempuri.org/IAircraftService/GetAllFlightParametersResponse")]
-        System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<AircraftDataAnalysisWinRT.AircraftService.FlightParameter>> GetAllFlightParametersAsync(string modelName);
+        System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<AircraftDataAnalysisWinRT.AircraftService.FlightParameter>> GetAllFlightParametersAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAircraftService/InsertRawDataBatch", ReplyAction="http://tempuri.org/IAircraftService/InsertRawDataBatchResponse")]
+        System.Threading.Tasks.Task<string> InsertRawDataBatchAsync(AircraftDataAnalysisWinRT.AircraftService.RawDataBatch batchData);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAircraftService/GetCurrentAircraftModel", ReplyAction="http://tempuri.org/IAircraftService/GetCurrentAircraftModelResponse")]
+        System.Threading.Tasks.Task<AircraftDataAnalysisWinRT.AircraftService.AircraftModel> GetCurrentAircraftModelAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -277,20 +634,16 @@ namespace AircraftDataAnalysisWinRT.AircraftService {
             return base.Channel.DoWorkAsync();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<AircraftDataAnalysisWinRT.AircraftService.AircraftModel>> GetAllAircraftModelsAsync() {
-            return base.Channel.GetAllAircraftModelsAsync();
+        public System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<AircraftDataAnalysisWinRT.AircraftService.FlightParameter>> GetAllFlightParametersAsync() {
+            return base.Channel.GetAllFlightParametersAsync();
         }
         
-        public System.Threading.Tasks.Task<string> AddOrUpdateAircraftModelAsync(AircraftDataAnalysisWinRT.AircraftService.AircraftModel aircraftModel) {
-            return base.Channel.AddOrUpdateAircraftModelAsync(aircraftModel);
+        public System.Threading.Tasks.Task<string> InsertRawDataBatchAsync(AircraftDataAnalysisWinRT.AircraftService.RawDataBatch batchData) {
+            return base.Channel.InsertRawDataBatchAsync(batchData);
         }
         
-        public System.Threading.Tasks.Task<string> DeleteAircraftAsync(string aircraftModel) {
-            return base.Channel.DeleteAircraftAsync(aircraftModel);
-        }
-        
-        public System.Threading.Tasks.Task<System.Collections.ObjectModel.ObservableCollection<AircraftDataAnalysisWinRT.AircraftService.FlightParameter>> GetAllFlightParametersAsync(string modelName) {
-            return base.Channel.GetAllFlightParametersAsync(modelName);
+        public System.Threading.Tasks.Task<AircraftDataAnalysisWinRT.AircraftService.AircraftModel> GetCurrentAircraftModelAsync() {
+            return base.Channel.GetCurrentAircraftModelAsync();
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync() {

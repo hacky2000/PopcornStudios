@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightDataEntitiesRT;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,23 +19,65 @@ namespace AircraftDataAnalysisWinRT.DataModel
             // TODO: Complete member initialization
             this.file = file;
 
-            this.CurrentFileName = this.file.Name;
-
-            this.InitLoadHeader();
+            //this.CurrentFileName = this.file.Name;
+            //不在这里做，读取头是需要时间的，或者还需要有经纬度地图
+            //this.InitLoadHeader();
         }
 
-        private async void InitLoadHeader()
+        private FlightDataEntitiesRT.FlightDataHeader m_header = null;
+
+        public FlightDataEntitiesRT.FlightDataHeader Header
+        {
+            get
+            {
+                return m_header;
+            }
+            set
+            {
+                this.SetProperty<FlightDataEntitiesRT.FlightDataHeader>(ref m_header, value);
+            }
+        }
+
+        public async void InitLoadHeader()
         {
             if (this.file != null)
             {
                 var readFile = await this.file.OpenReadAsync();
                 var stream = readFile.AsStreamForRead();
-                BinaryReader reader = new BinaryReader(stream);
 
-                FlightDataEntitiesRT.PHYHeader header = FlightDataEntitiesRT.PHYHelper.ReadPHYHeader(reader);
-
-                this.BindHeader(header);
+                using (BinaryReader reader = new BinaryReader(stream))
+                {
+                    FlightDataEntitiesRT.IFlightRawDataExtractor extractor =
+                        this.CreateRawDataExtractorByAircraftModelName();
+                    if (extractor != null)
+                    {
+                        this.Header = extractor.GetHeader();
+                        extractor.Close();
+                    }
+                    else this.Header = null;
+                }
             }
+        }
+
+        private FlightDataEntitiesRT.IFlightRawDataExtractor CreateRawDataExtractorByAircraftModelName()
+        {
+            AircraftService.AircraftServiceClient client = new AircraftService.AircraftServiceClient();
+            var modelTask = client.GetCurrentAircraftModelAsync();
+            modelTask.Wait();
+            var model = modelTask.Result;
+
+            if (model != null && !string.IsNullOrEmpty(model.ModelName))
+            {
+                if (model.ModelName == "F4D")
+                {
+                    var result = FlightDataReading.AircraftModel1.FlightRawDataExtractorFactory
+                        .CreateFlightRawDataExtractor(this.file);
+
+                    return result;
+                }
+            }
+
+            return null;
         }
 
         private string m_description = string.Empty;
@@ -43,7 +86,9 @@ namespace AircraftDataAnalysisWinRT.DataModel
         {
             get
             {
-                return m_description;
+                if (this.Header != null)
+                    return this.Header.Description;
+                return string.Empty;
             }
             set
             {
@@ -62,143 +107,143 @@ namespace AircraftDataAnalysisWinRT.DataModel
             }
         }
 
-        private FlightDataEntitiesRT.PHYHeader m_header = null;
+        //private FlightDataEntitiesRT.PHYHeader m_header = null;
 
-        private void BindHeader(FlightDataEntitiesRT.PHYHeader header)
-        {
-            this.m_header = header;
+        //private void BindHeader(FlightDataEntitiesRT.PHYHeader header)
+        //{
+        //    this.m_header = header;
 
-            if (m_header != null)
-            {
-                StringBuilder builder = new StringBuilder();
-                builder.AppendLine(m_header.AircrfName);
-                builder.AppendLine(m_header.AircrfNum);
-                builder.AppendLine(m_header.BTime.ToString());
-                builder.AppendLine(m_header.EndTime.ToString());
-                builder.AppendLine(m_header.FlyPlanAddr.ToString());
-                builder.AppendLine(m_header.FlySeconds.ToString());
-                builder.AppendLine(m_header.GPSEndTime.ToString());
-                builder.AppendLine(m_header.GPSStartTime.ToString());
-                builder.AppendLine(m_header.OPName);
-                builder.AppendLine(m_header.ParaListAddr.ToString());
-                builder.AppendLine(m_header.PhyValueAddr.ToString());
-                builder.AppendLine(m_header.PhyValueEndAddr.ToString());
-                builder.AppendLine(m_header.PNum.ToString());
-                builder.AppendLine(m_header.StartTime.ToString());
-                builder.AppendLine(m_header.SWNum.ToString());
+        //    if (m_header != null)
+        //    {
+        //        StringBuilder builder = new StringBuilder();
+        //        builder.AppendLine(m_header.AircrfName);
+        //        builder.AppendLine(m_header.AircrfNum);
+        //        builder.AppendLine(m_header.BTime.ToString());
+        //        builder.AppendLine(m_header.EndTime.ToString());
+        //        builder.AppendLine(m_header.FlyPlanAddr.ToString());
+        //        builder.AppendLine(m_header.FlySeconds.ToString());
+        //        builder.AppendLine(m_header.GPSEndTime.ToString());
+        //        builder.AppendLine(m_header.GPSStartTime.ToString());
+        //        builder.AppendLine(m_header.OPName);
+        //        builder.AppendLine(m_header.ParaListAddr.ToString());
+        //        builder.AppendLine(m_header.PhyValueAddr.ToString());
+        //        builder.AppendLine(m_header.PhyValueEndAddr.ToString());
+        //        builder.AppendLine(m_header.PNum.ToString());
+        //        builder.AppendLine(m_header.StartTime.ToString());
+        //        builder.AppendLine(m_header.SWNum.ToString());
 
-                this.Description = builder.ToString();
+        //        this.Description = builder.ToString();
 
-                this.UniqueId = m_header.AircrfName + "/" + m_header.AircrfNum;
-                //Example: F4D/0004
-            }
-            else
-            {
-                this.UniqueId = string.Empty;
-            }
+        //        this.UniqueId = m_header.AircrfName + "/" + m_header.AircrfNum;
+        //        //Example: F4D/0004
+        //    }
+        //    else
+        //    {
+        //        this.UniqueId = string.Empty;
+        //    }
 
-            if (this.m_header != null)
-                this.ImportDataVisibility = Windows.UI.Xaml.Visibility.Visible;
-            else this.ImportDataVisibility = Windows.UI.Xaml.Visibility.Collapsed;
-        }
+        //    if (this.m_header != null)
+        //        this.ImportDataVisibility = Windows.UI.Xaml.Visibility.Visible;
+        //    else this.ImportDataVisibility = Windows.UI.Xaml.Visibility.Collapsed;
+        //}
 
-        private string m_currentFileName = string.Empty;
-        public string CurrentFileName
-        {
-            get { return this.m_currentFileName; }
-            set { this.SetProperty(ref this.m_currentFileName, value); }
-        }
+        //private string m_currentFileName = string.Empty;
+        //public string CurrentFileName
+        //{
+        //    get { return this.m_currentFileName; }
+        //    set { this.SetProperty(ref this.m_currentFileName, value); }
+        //}
 
-        private Task m_task = null;
+        //private Task m_task = null;
 
-        internal void ImportData()
-        {
-            this.Status = AsyncStatus.Started;
-            this.ErrorCode = null;
-            this.
-            m_task = new Task(new Action(delegate()
-            {
-                this.DoImportData();
-            }));
-            m_task.RunSynchronously();
-        }
+        //internal void ImportData()
+        //{
+        //    this.Status = AsyncStatus.Started;
+        //    this.ErrorCode = null;
+        //    this.
+        //    m_task = new Task(new Action(delegate()
+        //    {
+        //        this.DoImportData();
+        //    }));
+        //    m_task.RunSynchronously();
+        //}
 
-        private async void DoImportData()
-        {
-            int seconds = FlightDataEntitiesRT.PHYHelper.GetFlyParamSeconds(m_header);
-            var openStreamTask = this.file.OpenStreamForReadAsync();
-            var getParamsTask = this.GetParametersAsync();
+        //private async void DoImportData()
+        //{
+        //    int seconds = FlightDataEntitiesRT.PHYHelper.GetFlyParamSeconds(m_header);
+        //    var openStreamTask = this.file.OpenStreamForReadAsync();
+        //    var getParamsTask = this.GetParametersAsync();
 
-            Stream stream = await openStreamTask;
-            IEnumerable<FlightDataEntitiesRT.FlyParameter> paramRTs = await getParamsTask;
+        //    Stream stream = await openStreamTask;
+        //    IEnumerable<FlightDataEntitiesRT.FlyParameter> paramRTs = await getParamsTask;
 
-            using (BinaryReader reader = new BinaryReader(stream))
-            {
-                for (int current = 0; current <= seconds; current++)
-                {
-                    this.ReadOneSecondAndImport(current, reader, this.m_header, paramRTs);
+        //    using (BinaryReader reader = new BinaryReader(stream))
+        //    {
+        //        for (int current = 0; current <= seconds; current++)
+        //        {
+        //            this.ReadOneSecondAndImport(current, reader, this.m_header, paramRTs);
 
-                    int progress = Convert.ToInt32(100.0 * (double)current / (double)seconds);
-                    
-                    if (this.Progress != null)
-                    {
-                        this.Progress(this, progress);
-                    }
-                }
-            }
+        //            int progress = Convert.ToInt32(100.0 * (double)current / (double)seconds);
 
-            if (this.Completed != null)
-            {
-                this.Completed(this, this.Status);
-            }
-        }
+        //            if (this.Progress != null)
+        //            {
+        //                this.Progress(this, progress);
+        //            }
+        //        }
+        //    }
 
-        private Task<IEnumerable<FlightDataEntitiesRT.FlyParameter>> GetParametersAsync()
-        {
-            Task<IEnumerable<FlightDataEntitiesRT.FlyParameter>> task
-                = new Task<IEnumerable<FlightDataEntitiesRT.FlyParameter>>(
-                new Func<IEnumerable<FlightDataEntitiesRT.FlyParameter>>(delegate()
-            {
-                //debug
-                AircraftService.AircraftModel model = new AircraftService.AircraftModel()
-                {
-                    ModelName = "F4D",
-                    Caption = "",
-                    LastUsed = DateTime.Now
-                };
+        //    if (this.Completed != null)
+        //    {
+        //        this.Completed(this, this.Status);
+        //    }
+        //}
 
-                AircraftService.AircraftServiceClient client = new AircraftService.AircraftServiceClient();
-                var modelParamsTask = client.GetAllFlightParametersAsync(model.ModelName);
-                modelParamsTask.Wait();
+        //private Task<IEnumerable<FlightDataEntitiesRT.FlyParameter>> GetParametersAsync()
+        //{
+        //    Task<IEnumerable<FlightDataEntitiesRT.FlyParameter>> task
+        //        = new Task<IEnumerable<FlightDataEntitiesRT.FlyParameter>>(
+        //        new Func<IEnumerable<FlightDataEntitiesRT.FlyParameter>>(delegate()
+        //    {
+        //        //debug
+        //        AircraftService.AircraftModel model = new AircraftService.AircraftModel()
+        //        {
+        //            ModelName = "F4D",
+        //            Caption = "",
+        //            LastUsed = DateTime.Now
+        //        };
 
-                var result = modelParamsTask.Result;
-                var resultRT = from one in result
-                               select new FlightDataEntitiesRT.FlyParameter()
-                               {
-                                   Index = one.Index,
-                                   SubIndex = one.SubIndex,
-                                   Caption = one.Caption,
-                                   Frequence = one.Frequence,
-                                   Unit = one.Unit
-                               };
+        //        AircraftService.AircraftServiceClient client = new AircraftService.AircraftServiceClient();
+        //        var modelParamsTask = client.GetAllFlightParametersAsync(model.ModelName);
+        //        modelParamsTask.Wait();
 
-                return resultRT;
-            }));
+        //        var result = modelParamsTask.Result;
+        //        var resultRT = from one in result
+        //                       select new FlightDataEntitiesRT.FlyParameter()
+        //                       {
+        //                           Index = one.Index,
+        //                           SubIndex = one.SubIndex,
+        //                           Caption = one.Caption,
+        //                           Frequence = one.Frequence,
+        //                           Unit = one.Unit
+        //                       };
 
-            task.RunSynchronously();
+        //        return resultRT;
+        //    }));
 
-            return task;
-        }
+        //    task.RunSynchronously();
 
-        private void ReadOneSecondAndImport(int current, BinaryReader reader, FlightDataEntitiesRT.PHYHeader header,
-            IEnumerable<FlightDataEntitiesRT.FlyParameter> paramList)
-        {
-            foreach (FlightDataEntitiesRT.FlyParameter parameter in paramList)
-            {
-                float[] datas = FlightDataEntitiesRT.PHYHelper.ReadFlyParameter(reader, current, header, parameter);
+        //    return task;
+        //}
 
-            }
-        }
+        //private void ReadOneSecondAndImport(int current, BinaryReader reader, FlightDataEntitiesRT.PHYHeader header,
+        //    IEnumerable<FlightDataEntitiesRT.FlyParameter> paramList)
+        //{
+        //    foreach (FlightDataEntitiesRT.FlyParameter parameter in paramList)
+        //    {
+        //        float[] datas = FlightDataEntitiesRT.PHYHelper.ReadFlyParameter(reader, current, header, parameter);
+
+        //    }
+        //}
 
         public AsyncActionWithProgressCompletedHandler<int> Completed
         {
@@ -211,7 +256,7 @@ namespace AircraftDataAnalysisWinRT.DataModel
             if (this.Status == AsyncStatus.Completed)
                 return;
 
-            m_task.Wait();
+            //m_task.Wait();
         }
 
         public AsyncActionProgressHandler<int> Progress
@@ -255,6 +300,27 @@ namespace AircraftDataAnalysisWinRT.DataModel
             {
                 this.SetProperty<AsyncStatus>(ref m_status, value);
             }
+        }
+
+        public RawDataPointViewModel GetRawDataModel()
+        {
+            if (this.Header == null || this.Header.FlightSeconds <= 0)
+                return null;
+
+            RawDataPointViewModel viewModel = new RawDataPointViewModel();
+
+            viewModel.GenerateColumns();
+
+            IFlightRawDataExtractor extractor = this.CreateRawDataExtractorByAircraftModelName();
+
+            for (int i = 0; i < this.Header.FlightSeconds; i++)
+            {
+                ParameterRawData[] datas = extractor.GetDataBySecond(i);
+
+                viewModel.AddOneSecondValue(i, datas);
+            }
+
+            return viewModel;
         }
     }
 }

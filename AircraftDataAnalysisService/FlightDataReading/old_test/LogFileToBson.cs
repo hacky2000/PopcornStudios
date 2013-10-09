@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlightDataReading.old_test
+namespace FlightDataReading.AircraftModel1
 {
 
     public class LogFileToBson

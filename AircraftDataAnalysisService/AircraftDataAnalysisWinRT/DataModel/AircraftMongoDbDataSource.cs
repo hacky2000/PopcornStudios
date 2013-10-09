@@ -14,11 +14,11 @@ namespace AircraftDataAnalysisWinRT.DataModel
         public AircraftMongoDbDataSource()
         {
             AircraftService.AircraftServiceClient client = new AircraftService.AircraftServiceClient();
-            Task<ObservableCollection<AircraftService.AircraftModel>> modelsTask = client.GetAllAircraftModelsAsync();
-            
-            modelsTask.Wait();
-            
-            this.BindGroups(modelsTask.Result);
+            //Task<ObservableCollection<AircraftService.AircraftModel>> modelsTask = client.GetAllAircraftModelsAsync();
+
+            //modelsTask.Wait();
+
+            //this.BindGroups(modelsTask.Result);
                 //new Action<Task<ObservableCollection<AircraftService.AircraftModel>>>(
                 //    delegate(Task<ObservableCollection<AircraftService.AircraftModel>> task)
                 //    {

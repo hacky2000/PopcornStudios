@@ -100,16 +100,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BaseFunction.cs" />
+    <Compile Include="DataPointReducer.cs" />
+    <Compile Include="DataTypeConverter.cs" />
     <Compile Include="Decisions\ConditionRelation.cs" />
     <Compile Include="Decisions\Decision.cs" />
     <Compile Include="Decisions\IDecision.cs" />
     <Compile Include="Decisions\SubCondition.cs" />
-    <Compile Include="FlyParameter.cs" />
-    <Compile Include="FlyParameterHelper.cs" />
+    <Compile Include="ExtremumPointInfo.cs" />
+    <Compile Include="FlightDataHeader.cs" />
+    <Compile Include="IFlightRawDataExtractor.cs" />
+    <Compile Include="Level1FlightRecord.cs" />
+    <Compile Include="Level2FlightRecord.cs" />
     <Compile Include="ParameterRawData.cs" />
-    <Compile Include="PHYException.cs" />
-    <Compile Include="PHYHeader.cs" />
-    <Compile Include="PHYHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -52,17 +52,7 @@
     <Compile Include="DataPointTransforms\DefaultLevel1ToLevelTopRecordStrategy.cs" />
     <Compile Include="DataPointTransforms\IFlightDataEntityTransformStrategy.cs" />
     <Compile Include="FlightDataEntityTransform.cs" />
-    <Compile Include="old_test\FlightDataReadingHandler.cs" />
     <Compile Include="old_test\BaseFunction.cs" />
-    <Compile Include="DataTypeConverter.cs" />
-    <Compile Include="old_test\FlightBinaryDataContentFrameDefinition.cs" />
-    <Compile Include="old_test\FlightBinaryDataContentSegmentDefinition.cs" />
-    <Compile Include="old_test\FlightBinaryDataDefinition.cs" />
-    <Compile Include="old_test\FlightBinaryDataHeaderDefinition.cs" />
-    <Compile Include="old_test\FlightBinaryDataParser.cs" />
-    <Compile Include="old_test\FlightDataContentFrame.cs" />
-    <Compile Include="old_test\FlightDataContentSegment.cs" />
-    <Compile Include="old_test\FlightDataHeader.cs" />
     <Compile Include="old_test\FlightRawDataWrapper.cs" />
     <Compile Include="old_test\FlyParameter.cs" />
     <Compile Include="old_test\LogFileToBson.cs" />

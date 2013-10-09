@@ -15,19 +15,25 @@ namespace AircraftDataAnalysisWcfService
         [OperationContract]
         void DoWork();
 
-        [OperationContract]
-        FlightDataEntities.AircraftModel[] GetAllAircraftModels();
+        //[OperationContract]
+        //FlightDataEntities.AircraftModel[] GetAllAircraftModels();
+
+        //[OperationContract]
+        //string AddOrUpdateAircraftModel(FlightDataEntities.AircraftModel aircraftModel);
+
+        //[OperationContract]
+        //string DeleteAircraft(string aircraftModel);
 
         [OperationContract]
-        string AddOrUpdateAircraftModel(FlightDataEntities.AircraftModel aircraftModel);
+        FlightParameter[] GetAllFlightParameters();
 
-        [OperationContract]
-        string DeleteAircraft(string aircraftModel);
-
-        [OperationContract]
-        FlightParameter[] GetAllFlightParameters(string modelName);
+        //[OperationContract]
+        //FlightParameter[] GetAllFlightParameters(string modelName);
 
         [OperationContract]
         string InsertRawDataBatch(RawDataBatch batchData);
+
+        [OperationContract]
+        AircraftModel GetCurrentAircraftModel();
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FlightDataReading.old_test;
+using FlightDataReading.AircraftModel1;
 using FlightDataReading;
 using System.Xml.Linq;
 using System.IO;
@@ -18,667 +18,70 @@ namespace ConsoleApplication1
             //Program1.Main2(args);
             //Program1.Main3(args);
             //return;
-            FlightDataEntities.FlightParameter[] parameters = ReadParameters(@"XMLFile1.xml");
+            //FlightDataEntities.FlightParameter[] parameters = ReadParameters(@"XMLFile1.xml");
 
-            FlightBinaryDataDefinition definition = new FlightBinaryDataDefinition()
-            {
-                #region init
-                HeaderDefinition = new FlightBinaryDataHeaderDefinition()
-                {
-                    BytesCount = 128,
-                    Segments = new FlightBinaryDataContentSegmentDefinition[]
-                  {
-                       //文件头
-                      new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 1,
-                           DataTypeStr = DataTypeConverter.STRING,
-                            SegmentName = "Year"},
-                            new FlightBinaryDataContentSegmentDefinition(){
-                                 BytesCount = 1,
-                                  DataTypeStr = DataTypeConverter.STRING,
-                                   SegmentName = "Month"},
-                                   new FlightBinaryDataContentSegmentDefinition(){
-                                       BytesCount = 1,
-                                        DataTypeStr = DataTypeConverter.STRING,
-                                         SegmentName = "Day"},
-                                   new FlightBinaryDataContentSegmentDefinition(){
-                                       BytesCount = 1,
-                                        DataTypeStr = DataTypeConverter.STRING,
-                                         SegmentName = "AircraftModel"},
-                                         new FlightBinaryDataContentSegmentDefinition(){
-                                              BytesCount = 1,
-                                               DataTypeStr = DataTypeConverter.STRING,
-                                                SegmentName = "VSTOL"}, //起落
-                                         new FlightBinaryDataContentSegmentDefinition(){
-                                              BytesCount = 4,
-                                               DataTypeStr = DataTypeConverter.INT32,
-                                                SegmentName = "FlightSubject"},
-                        new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 2,
-                            DataTypeStr = DataTypeConverter.STRING,
-                            SegmentName = "Others"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, // 估计是8位而不是12位 BytesCount = 12,
-                                 DataTypeStr = DataTypeConverter.INT32,
-                                 SegmentName = "AircraftNumber"},
-                                 new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 2,
-                                     DataTypeStr = DataTypeConverter.STRING, SegmentName = "FileNumber"},
-                                     new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 32,
-                                          DataTypeStr = DataTypeConverter.STRING, SegmentName = "EngineCareer"} 
-                  }
-                },
-                FrameDefinition = new FlightBinaryDataContentFrameDefinition()
-                {
-                    BytesCount = 1024,
-                    Segments = new FlightBinaryDataContentSegmentDefinition[]
-                        { 
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Et"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KZB"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KCB"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ZS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fy1"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fx1"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fy2"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                                 //一行
 
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fx2"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Ny"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "aT"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "DR"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "GS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Dx"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Dy"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Dz"},
-                                 //2行
+            //string path = @"D:\home\09100223-1（右发空中超温）.phy";
 
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "EW"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KZB"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KCB"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CN"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ZS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "T6L"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "T6R"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fy1"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fx1"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "NHL"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fy2"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "NHR"},
-                                 //3行                                 
+            //FlightDataReading.FlightDataReadingHandler handler =
+            //    new FlightDataReading.FlightDataReadingHandler(path);
+            //handler.Definition = definition;
 
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fx2"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Wx"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Ny"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Vi"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "M"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Tt"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ZH"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "FY"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                                 //4行                                 
+            //var header = handler.ReadHeader();
 
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KZB"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KCB"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ZS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fy1"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fx1"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fy2"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                                 //5行
+            //FormatOutput(header);
 
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fx2"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Ny"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "aT"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "DR"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "GS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Dx"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Dy"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Dz"},
-                                 //6行
+            //handler.Read();
 
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "NS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KZB"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KCB"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ZS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fy1"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fx1"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fy2"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                                 //7行
+            //FormatOutput(handler.Frames);
 
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fx2"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Ny"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Nz"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Nx"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Wy"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "HG"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Vy"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Hp"},
-                                 //8行
-                                 
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ED"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KZB"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KCB"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ZS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fy1"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fx1"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fy2"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                                 //9行
+            //Dictionary<int, Dictionary<string, float[]>> valuesMap = new Dictionary<int, Dictionary<string, float[]>>();
 
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fx2"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Wx"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Ny"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "aT"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "DR"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "GS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Dx"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Dy"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Dz"},
-                                 //10行
-                                 
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KG1"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KZB"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KCB"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ZS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fy1"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fx1"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fy2"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                                 //11行
+            //for (int i = 0; i < handler.Frames.Count; i++)
+            //{
+            //    Dictionary<string, float[]> map = new Dictionary<string, float[]>();
 
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fx2"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Ny"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "T6L"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CN"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "T6R"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "YD"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "NHL"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "NHR"},
-                                 //12行
-                                 
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ND"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KZB"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KCB"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ZS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Tt"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fy1"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fx1"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fy2"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                                 //13行
+            //    var frame = handler.Frames[i];
 
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fx2"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Ny"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "aT"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "DR"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "GS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Dx"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Dy"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Dz"},
-                                 //14行
-                                 
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KG17"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KZB"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "KCB"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ZS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fy1"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fx1"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fy2"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                                 //15行
+            //    var result = from one in frame.Segments
+            //                 group one.Value by one.SegmentName into pid
+            //                 select new { pid.Key, pid };
 
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Fx2"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "CS"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Ny"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Nz"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Nx"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Wz"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "HG"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Vy"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "ID"},
-                            new FlightBinaryDataContentSegmentDefinition(){ BytesCount = 4, DataTypeStr = DataTypeConverter.FLOAT,
-                                 SegmentName = "Hp"},
-                                 //16行
-                        }
-                }
+            //    foreach (var one in result)
+            //    {
+            //        List<float> v = new List<float>();
+            //        foreach (var two in one.pid)
+            //        {
+            //            v.Add(Convert.ToSingle(two));
+            //        }
 
-                #endregion
-            };
+            //        map.Add(one.Key, v.ToArray());
+            //    }
 
-            string path = @"D:\home\12110222-4.phy";
+            //    var notP = from one in parameters
+            //               where !map.ContainsKey(one.ParameterID)
+            //               select one;
+            //    foreach (var p in notP)
+            //    {
+            //        map.Add(p.ParameterID, new float[] { });
+            //    }
 
-            FlightDataReading.FlightDataReadingHandler handler =
-                new FlightDataReading.FlightDataReadingHandler(path);
-            handler.Definition = definition;
+            //    valuesMap.Add(i, map);
+            //}
 
-            var header = handler.ReadHeader();
+            //FormatOutput(valuesMap, parameters);
 
-            FormatOutput(header);
+            //FormatMaxMinValueOutput(valuesMap, parameters);
 
-            handler.Read();
+            //System.Console.Read();
 
-            FormatOutput(handler.Frames);
+            //handler.PreSetAircraftModelName = "A0004";
+            //handler.MongoDBConnectionString = "mongodb://localhost/?w=1";
 
-            Dictionary<int, Dictionary<string, float[]>> valuesMap = new Dictionary<int, Dictionary<string, float[]>>();
+            //FlightDataReading.AircraftModel1.FlightRawDataWrapper wrapper = new FlightDataReading.AircraftModel1.FlightRawDataWrapper(path) { Definition = definition };
+            //wrapper.Open();
 
-            for (int i = 0; i < handler.Frames.Count; i++)
-            {
-                Dictionary<string, float[]> map = new Dictionary<string, float[]>();
-
-                var frame = handler.Frames[i];
-
-                var result = from one in frame.Segments
-                             group one.Value by one.SegmentName into pid
-                             select new { pid.Key, pid };
-
-                foreach (var one in result)
-                {
-                    List<float> v = new List<float>();
-                    foreach (var two in one.pid)
-                    {
-                        v.Add(Convert.ToSingle(two));
-                    }
-
-                    map.Add(one.Key, v.ToArray());
-                }
-
-                var notP = from one in parameters
-                           where !map.ContainsKey(one.ParameterID)
-                           select one;
-                foreach (var p in notP)
-                {
-                    map.Add(p.ParameterID, new float[] { });
-                }
-
-                valuesMap.Add(i, map);
-            }
-
-            FormatOutput(valuesMap, parameters);
-
-            FormatMaxMinValueOutput(valuesMap, parameters);
-
-            System.Console.Read();
-
-            handler.PreSetAircraftModelName = "A0004";
-            handler.MongoDBConnectionString = "mongodb://localhost/?w=1";
-
-            FlightDataReading.old_test.FlightRawDataWrapper wrapper = new FlightDataReading.old_test.FlightRawDataWrapper(path) { Definition = definition };
-            wrapper.Open();
-
-            FormatOutput(wrapper.Header);
+            //FormatOutput(wrapper.Header);
 
         }
 
@@ -906,41 +309,41 @@ namespace ConsoleApplication1
             }
         }
 
-        private static void FormatOutput(List<FlightDataContentFrame> list)
-        {
-            StringBuilder b = new StringBuilder();
-            //int i = 1;
-            foreach (var frame in list)
-            {
-                foreach (var seg in frame.Segments)
-                {
-                    b.Append(seg.Value);
-                    b.Append('\t');
-                }
-                b.AppendLine();
-            }
-            //Console.WriteLine(b.ToString());
-            System.Diagnostics.Debug.WriteLine(b.ToString());
-            System.Diagnostics.Debug.WriteLine("______________________________________________________________________________________________________________________________________________________");
-            System.Diagnostics.Debug.WriteLine(string.Empty);
-        }
+        //private static void FormatOutput(List<FlightDataContentFrame> list)
+        //{
+        //    StringBuilder b = new StringBuilder();
+        //    //int i = 1;
+        //    foreach (var frame in list)
+        //    {
+        //        foreach (var seg in frame.Segments)
+        //        {
+        //            b.Append(seg.Value);
+        //            b.Append('\t');
+        //        }
+        //        b.AppendLine();
+        //    }
+        //    //Console.WriteLine(b.ToString());
+        //    System.Diagnostics.Debug.WriteLine(b.ToString());
+        //    System.Diagnostics.Debug.WriteLine("______________________________________________________________________________________________________________________________________________________");
+        //    System.Diagnostics.Debug.WriteLine(string.Empty);
+        //}
 
-        private static void FormatOutput(FlightDataReading.old_test.FlightDataHeader flightDataHeader)
-        {
-            StringBuilder b = new StringBuilder();
-            int i = 1;
-            foreach (var seg in flightDataHeader.Segments)
-            {
-                b.Append(seg.Value);
+        //private static void FormatOutput(FlightDataReading.AircraftModel1.FlightDataHeader flightDataHeader)
+        //{
+        //    StringBuilder b = new StringBuilder();
+        //    int i = 1;
+        //    foreach (var seg in flightDataHeader.Segments)
+        //    {
+        //        b.Append(seg.Value);
 
-                if (i % 8 == 0)
-                    b.AppendLine();
-                else b.Append('\t');
+        //        if (i % 8 == 0)
+        //            b.AppendLine();
+        //        else b.Append('\t');
 
-                i++;
-            }
-            //Console.WriteLine(b.ToString());
-            System.Diagnostics.Debug.WriteLine(b.ToString());
-        }
+        //        i++;
+        //    }
+        //    //Console.WriteLine(b.ToString());
+        //    System.Diagnostics.Debug.WriteLine(b.ToString());
+        //}
     }
 }

@@ -78,7 +78,8 @@ namespace FlightDataReading.AircraftFault
 
         private static BsonValue GetParameterValue(FlightDataEntities.FlightParameter flightParameter, string value)
         {
-            return DataTypeConverter.ToBsonType(value, flightParameter.ParameterDataType);
+            return null;
+            //return DataTypeConverter.ToBsonType(value, flightParameter.ParameterDataType);
         }
     }
 }

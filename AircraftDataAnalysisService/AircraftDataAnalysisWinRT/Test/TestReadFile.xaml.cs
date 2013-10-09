@@ -65,6 +65,12 @@ namespace AircraftDataAnalysisWinRT.Test
                 AddFileViewModel model = new AddFileViewModel(file);
                 this.ViewModel = model;
                 this.DataContext = model;
+                this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
+                    new Windows.UI.Core.DispatchedHandler(
+                    delegate()
+                    {
+                        model.InitLoadHeader();
+                    }));
             }
             else
             {
@@ -83,7 +89,17 @@ namespace AircraftDataAnalysisWinRT.Test
             this.ViewModel.Progress += new AsyncActionProgressHandler<int>(this.OnProgressChanged);
             this.ViewModel.Completed = new AsyncActionWithProgressCompletedHandler<int>(this.OnCompleted);
 
-            this.ViewModel.ImportData();
+            this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
+                new Windows.UI.Core.DispatchedHandler(
+                    delegate()
+                    {
+                        var rawDataModel = this.ViewModel.GetRawDataModel();
+                        foreach (var col in rawDataModel.ColumnCollection)
+                        {
+                            this.gridData.Columns.Add(col);
+                        }
+                        this.gridData.ItemsSource = rawDataModel.Items;
+                    }));
         }
 
         private void OnProgressChanged(IAsyncActionWithProgress<int> asyncInfo, int progress)

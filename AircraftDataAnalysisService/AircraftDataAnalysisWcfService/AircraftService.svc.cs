@@ -10,6 +10,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
 using FlightDataReading;
+using System.Configuration;
 
 namespace AircraftDataAnalysisWcfService
 {
@@ -347,6 +348,11 @@ namespace AircraftDataAnalysisWcfService
                 AircraftMongoDb.DATABASE_COMMON, AircraftMongoDb.COLLECTION_FLIGHT_PARAMETER);
         }
 
+        public FlightParameter[] GetAllFlightParameters()
+        {
+            return this.GetAllFlightParameters(this.GetCurrentAircraftModel().ModelName);
+        }
+
         public FlightParameter[] GetAllFlightParameters(string modelName)
         {
             MongoServer mongoServer = this.GetMongoServer();
@@ -464,6 +470,26 @@ namespace AircraftDataAnalysisWcfService
             }
 
             return string.Empty;
+        }
+
+        private static AircraftModel m_currentAircraftModel = null;
+
+        public AircraftModel GetCurrentAircraftModel()
+        {
+            if (m_currentAircraftModel == null)
+                this.InitCurrentAircraftModel();
+
+            return m_currentAircraftModel;
+        }
+
+        private void InitCurrentAircraftModel()
+        {
+            string modelName = ConfigurationManager.AppSettings["AircraftModelName"];
+            string modelCaption = ConfigurationManager.AppSettings["AircraftModelCaption"];
+
+            AircraftModel model = new AircraftModel() { ModelName = modelName, Caption = modelCaption, LastUsed = DateTime.Now };
+
+            m_currentAircraftModel = model;
         }
     }
 }

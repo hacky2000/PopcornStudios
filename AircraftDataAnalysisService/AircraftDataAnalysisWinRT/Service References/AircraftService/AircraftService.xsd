@@ -11,57 +11,41 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetAllAircraftModels">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetAllAircraftModelsResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/FlightDataEntities" minOccurs="0" name="GetAllAircraftModelsResult" nillable="true" type="q1:ArrayOfAircraftModel" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="AddOrUpdateAircraftModel">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/FlightDataEntities" minOccurs="0" name="aircraftModel" nillable="true" type="q2:AircraftModel" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="AddOrUpdateAircraftModelResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="AddOrUpdateAircraftModelResult" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="DeleteAircraft">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="aircraftModel" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="DeleteAircraftResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="DeleteAircraftResult" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="GetAllFlightParameters">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="modelName" nillable="true" type="xs:string" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="GetAllFlightParametersResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/FlightDataEntities" minOccurs="0" name="GetAllFlightParametersResult" nillable="true" type="q3:ArrayOfFlightParameter" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/FlightDataEntities" minOccurs="0" name="GetAllFlightParametersResult" nillable="true" type="q1:ArrayOfFlightParameter" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertRawDataBatch">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/FlightDataEntities" minOccurs="0" name="batchData" nillable="true" type="q2:RawDataBatch" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertRawDataBatchResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertRawDataBatchResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCurrentAircraftModel">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCurrentAircraftModelResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/FlightDataEntities" minOccurs="0" name="GetCurrentAircraftModelResult" nillable="true" type="q3:AircraftModel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

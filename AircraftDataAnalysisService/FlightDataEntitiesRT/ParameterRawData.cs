@@ -38,14 +38,14 @@ namespace FlightDataEntitiesRT
         /// <summary>
         /// 写死只要第一个值
         /// </summary>
-        public float SummaryValue
-        {
-            get
-            {
-                if (Values != null && Values.Length > 0)
-                    return Values[0];
-                return 0;
-            }
-        }
+        //public float SummaryValue
+        //{
+        //    get
+        //    {
+        //        if (Values != null && Values.Length > 0)
+        //            return Values[0];
+        //        return 0;
+        //    }
+        //}
     }
 }

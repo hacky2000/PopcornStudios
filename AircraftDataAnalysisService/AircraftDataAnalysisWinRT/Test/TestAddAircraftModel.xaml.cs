@@ -51,11 +51,11 @@ namespace AircraftDataAnalysisWinRT.Test
 
         private async void OnRefreshAircraftClicked(object sender, RoutedEventArgs e)
         {
-            AircraftService.AircraftServiceClient client =
-                new AircraftService.AircraftServiceClient();
-            var models = await client.GetAllAircraftModelsAsync();
+            //AircraftService.AircraftServiceClient client =
+            //    new AircraftService.AircraftServiceClient();
+            //var models = await client.GetAllAircraftModelsAsync();
 
-            aircraftModels.ItemsSource = models;
+            //aircraftModels.ItemsSource = models;
 
             //foreach (var one in models)
             //{
@@ -75,7 +75,7 @@ namespace AircraftDataAnalysisWinRT.Test
                 LastUsed = DateTime.Now
             };
 
-            client.AddOrUpdateAircraftModelAsync(model);
+            //client.AddOrUpdateAircraftModelAsync(model);
         }
     }
 }

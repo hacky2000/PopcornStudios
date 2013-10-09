@@ -46,21 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\FlightDataEntitiesRT\BaseFunction.cs">
-      <Link>FlightDataEntitiesRT\BaseFunction.cs</Link>
-    </Compile>
-    <Compile Include="..\FlightDataEntitiesRT\FlyParameter.cs">
-      <Link>FlightDataEntitiesRT\FlyParameter.cs</Link>
-    </Compile>
-    <Compile Include="..\FlightDataEntitiesRT\PHYException.cs">
-      <Link>FlightDataEntitiesRT\PHYException.cs</Link>
-    </Compile>
-    <Compile Include="..\FlightDataEntitiesRT\PHYHeader.cs">
-      <Link>FlightDataEntitiesRT\PHYHeader.cs</Link>
-    </Compile>
-    <Compile Include="..\FlightDataEntitiesRT\PHYHelper.cs">
-      <Link>FlightDataEntitiesRT\PHYHelper.cs</Link>
-    </Compile>
     <Compile Include="AircraftInstance.cs" />
     <Compile Include="AircraftModel.cs" />
     <Compile Include="AircraftMongoDb.cs" />

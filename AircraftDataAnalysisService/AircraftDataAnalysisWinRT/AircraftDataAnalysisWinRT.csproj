@@ -115,6 +115,7 @@
     <Compile Include="DataModel\AircraftMongoDbDataSource.cs" />
     <Compile Include="DataModel\DataCommon.cs" />
     <Compile Include="DataModel\FlightDataItem.cs" />
+    <Compile Include="DataModel\RawDataPointViewModel.cs" />
     <Compile Include="GroupedItemsPage.xaml.cs">
       <DependentUpon>GroupedItemsPage.xaml</DependentUpon>
     </Compile>
@@ -176,6 +177,12 @@
     <None Include="Service References\AircraftService\AircraftService11.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\AircraftService\AircraftService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AircraftService\AircraftService21.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\AircraftService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -225,6 +232,10 @@
     <ProjectReference Include="..\FlightDataEntitiesRT\FlightDataEntitiesRT.csproj">
       <Project>{fd796cd2-5869-446f-a92c-93ee311c0eed}</Project>
       <Name>FlightDataEntitiesRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FlightDataReading.AircraftModel1\FlightDataReading.AircraftModel1.csproj">
+      <Project>{246a5965-2ed4-40bc-840c-e67dfe2a7187}</Project>
+      <Name>FlightDataReading.AircraftModel1</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
