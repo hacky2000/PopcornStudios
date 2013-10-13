@@ -100,14 +100,6 @@
       <Project>{0a0034b3-dd7d-449f-907f-df51d5c9d057}</Project>
       <Name>FlightDataReading</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\mongodb\mongo-csharp-driver-master\MongoDB.Bson\MongoDB.Bson.csproj">
-      <Project>{0e9a3a2a-49cd-4f6c-847c-dc79b4b65ce6}</Project>
-      <Name>MongoDB.Bson</Name>
-    </ProjectReference>
-    <ProjectReference Include="C:\mongodb\mongo-csharp-driver-master\MongoDB.Driver\MongoDB.Driver.csproj">
-      <Project>{ae5166cd-76b0-4911-bd80-ced9521f37a1}</Project>
-      <Name>MongoDB.Driver</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

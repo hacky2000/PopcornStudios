@@ -77,13 +77,13 @@ namespace AircraftDataAnalysisWinRT
                 // 当未还原导航堆栈时，导航到第一页，
                 // 并通过将所需信息作为导航参数传入来配置
                 // 新页
-                //if (!rootFrame.Navigate(typeof(GroupedItemsPage), "AllGroups"))
+                if (!rootFrame.Navigate(typeof(GroupedItemsPage), "AllGroups"))
                 //{
                 //    throw new Exception("Failed to create initial page");
                 //}
 
                 //test debug
-                if (!rootFrame.Navigate(typeof(Test.TestReadFile), "AllGroups"))
+                //if (!rootFrame.Navigate(typeof(Test.TestReadFile), "AllGroups"))
                 // if (!rootFrame.Navigate(typeof(Test.TestAddAircraftModel), "AllGroups"))
                 {
                     throw new Exception("Failed to create initial page");
